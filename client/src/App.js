@@ -3,19 +3,17 @@ import {
     BrowserRouter as Router,
     Route,
 } from "react-router-dom";
-import Search from "./pages/Search";
-import Saved from "./pages/Saved";
-import Navbar from "./components/navbar";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
 
 
 function App() {
     return(
         <Router>
             <div>
-                <Navbar />
-                <Route exact path="/" component={Search} />
-                <Route exact path="/search" component={Search} />
-                <Route exact path="/saved" component={Saved} />
+                <Route exact path="/" component={Login} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/dashboard" component={Dashboard} />
             </div>
         </Router>
     )
