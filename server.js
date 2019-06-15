@@ -4,6 +4,8 @@ const PORT = process.env.PORT || 3001;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
+const passport = require("passport");
+const users = require("./routes/api/users");
 
 const app = express();
 
@@ -31,6 +33,15 @@ if (process.env.NODE_ENV === "production") {
 mongoose.connect(db, { useNewUrlParser: true })
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.log(err));
+
+//Passport middleware
+app.use(passport.initialize());
+
+//Passport Config
+require("./config/passport")(passport);
+
+//Routes
+app.use("/api/users",users);
 
 // Define API routes here
 

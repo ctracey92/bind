@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys")
 //Here is where they want us to require the config/keys but I declined to make it;
 
 //Load input validation
@@ -14,7 +15,7 @@ const User = require("../../client/models/user");
 // @route POST api/users/register
 // @desc Register user
 // @access Public
-router.post("/register",(req,res) => {
+router.post("/register",(req, res) => {
     //Form Validation
     const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -36,7 +37,7 @@ router.post("/register",(req,res) => {
 
             //Hasing the password before we save
                 bcrypt.genSalt(10, (err,salt) => {
-                    bcrypt.hash(newUser.password, salt, (err,has )=> {
+                    bcrypt.hash(newUser.password, salt, (err,hash )=> {
                         if(err) throw err;
                         newUser.password = hash;
                         newUser
@@ -48,3 +49,61 @@ router.post("/register",(req,res) => {
         }
     });
 });
+
+// @route POST api/users/login
+// @desc Login user and return JWT 
+// @ access Public
+router.post("/login", (req, res) => {
+
+    //Form Validation
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    //Check Validation
+    if (!isValid){
+        return res.status(400).json(errors);
+    }
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    //Find user by email
+    User.findOne({email}).then(user => {
+        //Check to see if they exist
+        if(!user) {
+            return res.status(404).json({emailnotfound: "Email is not found"});
+        }
+
+        //Check password
+            bcrypt.compare(password, user.password).then(isMatch => {
+                if (isMatch) {
+                    //User matched
+                    //Create JWT Payload
+                    const payload = {
+                        id: user.id,
+                        username: user.username,
+                    };
+                
+        //Sign Token
+                jwt.sign(
+                    payload,
+                    keys.secretOrKey,
+                    {
+                        expiresIn: 31556926 // 1 year in seconds
+                    },
+                    (err, token) => {
+                        res.json({
+                            success: true,
+                            token: "Bearer " + token
+                        });
+                    }
+                );
+                } else {
+                    return res
+                    .status(400)
+                    .json({passwordincorrect: "Password incorrect"});
+                }
+            });
+    });
+});
+
+module.exports = router;

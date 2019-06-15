@@ -1,7 +1,7 @@
 const Validator = require("validator");
 const isEmpty = require("is-empty");
 
-module.exports = validateRegisterInput(data){
+module.exports = validateRegisterInput = (data) => {
     let errors = {};
 
     //Convert all ermpty fields into an empty string so that the validator will run
