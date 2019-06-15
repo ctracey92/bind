@@ -8,7 +8,7 @@ const logger = require("morgan");
 const app = express();
 
 //Require all of the models
-const db = require("./client/models/");
+const db = require("./config/keys").mongoURI;
 
 
 // Use morgan logger for logging requests
@@ -28,26 +28,24 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/bind";
-
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+mongoose.connect(db, { useNewUrlParser: true })
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.log(err));
 
 // Define API routes here
 
-app.get("/api/users/:username", (req,res) => {
-  db.Book.find({username: req.params.username},(err,data)=>{
-    // console.log(data)
-    if(err){console.log("Error getting saved books: ", err)}
-  })
-})
+// app.get("/api/users/:username", (req,res) => {
+//   db.Book.find({username: req.params.username},(err,data)=>{
+//     // console.log(data)
+//     if(err){console.log("Error getting saved books: ", err)}
+//   })
+// })
 
-app.post("/api/users/",(req,res) =>{
-  console.log("the route is hit****")
-  db.User.create(req.body)
-  .catch((err)=>{res.json(err)})
-})
+// app.post("/api/users/",(req,res) =>{
+//   console.log("the route is hit****")
+//   db.User.create(req.body)
+//   .catch((err)=>{res.json(err)})
+// })
 
 // app.delete("/api/books/:id",(req,res)=>{
 //   db.Book.deleteOne({_id: req.params.id}).then((err,data)=>{
