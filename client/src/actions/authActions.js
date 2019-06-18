@@ -7,7 +7,7 @@ import {
     SET_CURRENT_USER,
     USER_LOADING,
 } from "./types";
-import setAuthToken from "../utils/setAuthToken";
+
 
 //Register User
 export const registerUser = (userData, history) => dispatch => {

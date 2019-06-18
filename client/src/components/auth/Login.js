@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Proptypes from "prop-types";
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {loginUser} from "../../actions/authActions";
 import classnames from "classnames";
@@ -12,26 +12,33 @@ class Login extends Component{
         errors: {},
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.isAuthenticated) {
-            this.props.push("/dashboard"); //Send user to dash when they login
-            if (nextProps.errors){
-                this.setState({
-                    errors: nextProps.errors,
-                });
-            }
+    componentDidMount(){
+        //If logged in, redirects to dashboard
+        if (this.props.auth.isAuthenticated){
+            this.props.history.push("/dashboard");
         }
     }
 
-    onchange = e => {
-        this.setState({[e.target.id]:e.tagrte.value});
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.auth.isAuthenticated) {
+            this.props.history.push("/dashboard"); //Send user to dash when they login
+        }
+        if (nextProps.errors){
+            this.setState({
+                errors: nextProps.errors,
+            });
+        }
+    }
+
+    onChange = e => {
+        this.setState({[e.target.id]: e.target.value});
     };
     
     onSubmit = e => {
         e.preventDefault();
         const userData = {
             email: this.state.email,
-            passwprd: this.state.password
+            password: this.state.password
         };
         this.props.loginUser(userData);
     };
