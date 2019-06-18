@@ -1,22 +1,29 @@
-import React from "react";
+import React, {Component} from "react";
 import {
     BrowserRouter as Router,
     Route,
 } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Navbar from "./components/layout/Navbar";
+import Landing from "./components/layout/Landing";
 
 
-function App() {
-    return(
-        <Router>
+class App extends Component {
+    state = {
+        loggedIn: false,
+
+    }
+
+    render(){
+        return(
             <div>
-                <Route exact path="/" component={Login} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/dashboard" component={Dashboard} />
+                <Navbar />
+                <Landing />                
             </div>
-        </Router>
-    )
+        ) 
+    }
+
 }
 
 export default App;

@@ -45,26 +45,7 @@ app.use("/api/users",users);
 
 // Define API routes here
 
-// app.get("/api/users/:username", (req,res) => {
-//   db.Book.find({username: req.params.username},(err,data)=>{
-//     // console.log(data)
-//     if(err){console.log("Error getting saved books: ", err)}
-//   })
-// })
 
-// app.post("/api/users/",(req,res) =>{
-//   console.log("the route is hit****")
-//   db.User.create(req.body)
-//   .catch((err)=>{res.json(err)})
-// })
-
-// app.delete("/api/books/:id",(req,res)=>{
-//   db.Book.deleteOne({_id: req.params.id}).then((err,data)=>{
-//     if(err){res.json(err)};
-//   })
-// })
-
-// Send every other request to the React app
 // If no API routes are hit, send the React app
 
 // Define any API routes before this runs
