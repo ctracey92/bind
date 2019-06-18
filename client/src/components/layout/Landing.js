@@ -8,13 +8,10 @@ class Landing extends Component {
           <div className="row">
             <div className="col s12 center-align">
               <h4>
-                <b>Build</b> a login/auth app with the{" "}
-                <span style={{ fontFamily: "monospace" }}>MERN</span> stack from
-                scratch
+                <b>B.I.N.D.</b> | A social media managing app
               </h4>
               <p className="flow-text grey-text text-darken-1">
-                Create a (minimal) full-stack app with user authentication via
-                passport and JWTs
+                Create an account <b>Brand</b>, <b>Influence</b>, <b>Network</b>, and <b>Dominate</b>.
               </p>
               <br />
               <div className="col s6">
