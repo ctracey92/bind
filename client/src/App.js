@@ -55,9 +55,6 @@ class App extends Component {
                         <PrivateRoute exact path="/dashboard" component={Dashboard} />
                         <PrivateRoute exact path="/calendar" component={Calendar} />                       
                     </Switch>
-                    {/* <Switch>
-                        <PrivateRoute exact path="/calendar" component={Calendar} />
-                    </Switch> */}
                 </div>                
             </Router>             
          </Provider>

@@ -3,6 +3,12 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {logoutUser} from "../../actions/authActions";
 
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+
+import '@fullcalendar/core/main.css';
+import '@fullcalendar/daygrid/main.css';
+
 class Calendar extends Component{
 
     state = {
@@ -31,6 +37,16 @@ class Calendar extends Component{
                         >
                             Logout
                 </button>
+                <br />
+                <FullCalendar 
+                defaultView="dayGridWeek" 
+                plugins={[ dayGridPlugin ]}
+                events={[
+                    { title: 'event 1', date: '2019-06-19' },
+                    { title: 'event 2', date: '2019-06-20', start  : '2019-06-20T12:30:00',allDay : false },
+                    { title: 'event 2', date: '2019-06-20', start  : '2019-06-20T15:30:00',allDay : false }
+
+                  ]} />
             </div>
         )
     }
