@@ -8,11 +8,20 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
 
 class Calendar extends Component{
 
     state = {
-        events: [],
+        events: [
+            { title: 'event 1', date: '2019-06-19' },
+            { title: 'event 2', date: '2019-06-20', start  : '2019-06-20T12:30:00',allDay : false },
+            { title: 'event 3', date: '2019-06-20', start  : '2019-06-20T15:30:00',allDay : false },
+            { title: 'event 4', date: '2019-06-20', start  : '2019-06-20T12:30:00',allDay : false },
+            { title: 'event 5', date: '2019-06-20', start  : '2019-06-20T15:30:00',allDay : false },
+            { title: 'event 6', date: '2019-06-20', start  : '2019-06-20T12:30:00',allDay : false },
+            { title: 'event 7', date: '2019-06-20', start  : '2019-06-20T15:30:00',allDay : false }
+          ],
     }
 
     onLogoutClick = e => {
@@ -38,19 +47,20 @@ class Calendar extends Component{
                             Logout
                 </button>
                 <br />
+                <div style={{maxWidth: "800px", maxHeight:"325px"}}>
                 <FullCalendar 
-                defaultView="dayGridWeek" 
-                plugins={[ dayGridPlugin ]}
-                events={[
-                    { title: 'event 1', date: '2019-06-19' },
-                    { title: 'event 2', date: '2019-06-20', start  : '2019-06-20T12:30:00',allDay : false },
-                    { title: 'event 2', date: '2019-06-20', start  : '2019-06-20T15:30:00',allDay : false }
-
-                  ]} />
+                style={{contentHeight: "auto"}}
+                defaultView="dayGridMonth" 
+                plugins={[ dayGridPlugin,bootstrapPlugin ]}
+                events={this.state.events}
+                
+                 />
+                </div>
             </div>
         )
     }
 }
+
 
 Calendar.propTypes = {
     logoutUser: PropTypes.func.isRequired,
