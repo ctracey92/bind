@@ -9,6 +9,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
+import "./style.css";
 
 class Calendar extends Component{
 
@@ -42,15 +43,15 @@ class Calendar extends Component{
                                 marginTop: "1rem",
                             }}
                             onClick={this.onLogoutClick}
-                            className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                            className=" btn-large hoverable grey darken-2"
                         >
                             Logout
                 </button>
                 <br />
-                <div style={{maxWidth: "800px", maxHeight:"325px"}}>
+                <div className="container" style={{maxHeight: "400px"}}>
                 <FullCalendar 
-                style={{contentHeight: "auto"}}
-                defaultView="dayGridMonth" 
+                className="calendar"
+                defaultView="dayGridWeek" 
                 plugins={[ dayGridPlugin,bootstrapPlugin ]}
                 events={this.state.events}
                 
