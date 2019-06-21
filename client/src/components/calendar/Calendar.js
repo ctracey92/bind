@@ -13,6 +13,8 @@ import "./style.css";
 
 import DashButton from "../buttons/DashButton"
 
+import API from "../../utils/events";
+
 class Calendar extends Component{
 
     state = {
@@ -31,6 +33,33 @@ class Calendar extends Component{
         e.preventDefault();
         this.props.logoutUser();
     }
+
+
+
+    getEvents = () => {
+        API.getEvents()
+        .then(res=>{
+            console.log(res)
+            this.setState({events: res.data})
+        })
+        .catch(err => console.log(err));
+    };
+
+    addEvent = e => {
+        e.preventDefault();
+        API.addEvent({
+            title: "stringTest",
+            date: "2019-06-21"
+        })
+        .then(this.getEvents)
+        .catch(err => console.log(err));
+    };
+
+componentDidMount(){
+    this.getEvents();
+}
+
+
     render(){
         const {user} = this.props.auth;
 
@@ -49,6 +78,7 @@ class Calendar extends Component{
                         >
                             Logout
                 </button>
+                <button onClick={this.addEvent}>To add Event</button>
                 <DashButton />
                 <br />
                 <div className="container" style={{maxHeight: "400px"}}>
