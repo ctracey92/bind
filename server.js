@@ -6,10 +6,10 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const passport = require("passport");
 const users = require("./routes/api/users");
+const routes = require("./routes");
 
 const app = express();
 
-//Require all of the models
 const db = require("./config/keys").mongoURI;
 
 
@@ -40,18 +40,8 @@ app.use(passport.initialize());
 //Passport Config
 require("./config/passport")(passport);
 
-//Routes
-app.use("/api/users",users);
+app.use(routes);
 
-// Define API routes here
-
-
-// If no API routes are hit, send the React app
-
-// Define any API routes before this runs
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 })

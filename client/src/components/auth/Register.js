@@ -133,6 +133,7 @@ class Register extends Component{
                                     >
                                         Sign Up
                                     </button>
+                                    <p>By clicking here you agree to the <Link to="/terms">Terms of Service</Link></p>
                             </div>
                         </form>
                     </div>

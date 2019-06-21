@@ -11,6 +11,8 @@ import '@fullcalendar/daygrid/main.css';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import "./style.css";
 
+import DashButton from "../buttons/DashButton"
+
 class Calendar extends Component{
 
     state = {
@@ -47,6 +49,7 @@ class Calendar extends Component{
                         >
                             Logout
                 </button>
+                <DashButton />
                 <br />
                 <div className="container" style={{maxHeight: "400px"}}>
                 <FullCalendar 

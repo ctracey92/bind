@@ -36,49 +36,49 @@ class Dashboard extends Component {
                 </div>
                 <div className="row">
 
-                    <div class="col s12 m6">
-                        <div class="card grey darken-3">
-                            <div class="card-content white-text">
-                                <span class="card-title">Action 1</span>
+                    <div className="col s12 m6">
+                        <div className="card grey darken-3">
+                            <div className="card-content white-text">
+                                <span className="card-title">Action 1</span>
                                 <p>View and Edit your clanedar here!</p>
                             </div>
-                            <div class="card-action">
+                            <div className="card-action">
                                 <Link to="/calendar">Calendar</Link>
                                 <a href="#">This is a link</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col s12 m6">
-                        <div class="card grey darken-3">
-                            <div class="card-content white-text">
-                                <span class="card-title">Action 2</span>
+                    <div className="col s12 m6">
+                        <div className="card grey darken-3">
+                            <div className="card-content white-text">
+                                <span className="card-title">Action 2</span>
                                 <p>I do something.</p>
                             </div>
-                            <div class="card-action">
+                            <div className="card-action">
                                 <a href="#">This is a link</a>
                                 <a href="#">This is a link</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col s12 m6">
-                        <div class="card grey darken-3">
-                            <div class="card-content white-text">
-                                <span class="card-title">Action 3</span>
+                    <div className="col s12 m6">
+                        <div className="card grey darken-3">
+                            <div className="card-content white-text">
+                                <span className="card-title">Action 3</span>
                                 <p>I do something</p>
                             </div>
-                            <div class="card-action">
+                            <div className="card-action">
                                 <a href="#">This is a link</a>
                                 <a href="#">This is a link</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col s12 m6">
-                        <div class="card grey darken-3">
-                            <div class="card-content white-text">
-                                <span class="card-title">Action 4</span>
+                    <div className="col s12 m6">
+                        <div className="card grey darken-3">
+                            <div className="card-content white-text">
+                                <span className="card-title">Action 4</span>
                                 <p>I do something</p>
                             </div>
-                            <div class="card-action">
+                            <div className="card-action">
                                 <a href="#">This is a link</a>
                                 <a href="#">This is a link</a>
                             </div>

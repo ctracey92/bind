@@ -19,7 +19,8 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import Calendar from "./components/calendar/Calendar";
 import Privacy from "./components/privacy/Privacy";
-import Terms from "./components/terms/Terms"
+import Terms from "./components/terms/Terms";
+import Footer from "./components/layout/Footer";
 
 //Check for token to keep user logged in...
 if(localStorage.jwToken){
@@ -59,6 +60,7 @@ class App extends Component {
                         <PrivateRoute exact path="/dashboard" component={Dashboard} />
                         <PrivateRoute exact path="/calendar" component={Calendar} />                       
                     </Switch>
+                    {/* <Footer />  Needs some work before implementation*/}
                 </div>                
             </Router>             
          </Provider>
