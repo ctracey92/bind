@@ -4,12 +4,20 @@ import {connect} from "react-redux";
 import {logoutUser} from "../../actions/authActions";
 
 import FullCalendar from '@fullcalendar/react'
+
+//Plug-ins
 import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+
 
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
-import bootstrapPlugin from '@fullcalendar/bootstrap';
-import "./style.css";
+import '@fullcalendar/timegrid/main.css';
+
+
+
+// import "./style.css";
 
 import DashButton from "../buttons/DashButton"
 
@@ -28,6 +36,8 @@ class Calendar extends Component{
             { title: 'event 7', date: '2019-06-20', start  : '2019-06-20T15:30:00',allDay : false }
           ],
     }
+
+    
 
     onLogoutClick = e => {
         e.preventDefault();
@@ -59,8 +69,19 @@ componentDidMount(){
     this.getEvents();
 }
 
+// handleDateClick = (arg) => { // bind with an arrow function
+//     alert(arg.dateStr)
+//   }
+
+handleDateClick = arg => {
+    // let instance = M.Modal.getInstance(elem);
+    // instance.open();
+    console.log(arg);
+  };
+
 
     render(){
+        
         const {user} = this.props.auth;
 
         return(
@@ -81,11 +102,17 @@ componentDidMount(){
                 <button onClick={this.addEvent}>To add Event</button>
                 <DashButton />
                 <br />
-                <div className="container" style={{maxHeight: "400px"}}>
+                <div className="container">
                 <FullCalendar 
+                dateClick={this.handleDateClick}
+                header={{
+                    left: "prev,next today",
+                    center: "title",
+                    right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
+                  }}
                 className="calendar"
-                defaultView="dayGridWeek" 
-                plugins={[ dayGridPlugin,bootstrapPlugin ]}
+                defaultView="dayGridMonth" 
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 events={this.state.events}
                 
                  />
