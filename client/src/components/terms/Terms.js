@@ -65,6 +65,7 @@ class Terms extends Component{
 <h2>Contact Us</h2>
 
 <p>If you have any questions about these Terms, please contact us.</p>
+<br></br>
             </div>
         )
     }

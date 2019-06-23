@@ -20,6 +20,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Calendar from "./components/calendar/Calendar";
 import Privacy from "./components/privacy/Privacy";
 import Terms from "./components/terms/Terms";
+import Twitter from "./components/twitter/Twitter"
 import Footer from "./components/layout/Footer";
 
 //Check for token to keep user logged in...
@@ -58,7 +59,8 @@ class App extends Component {
                     <Route exact path="/terms" component={Terms} />
                     <Switch>
                         <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                        <PrivateRoute exact path="/calendar" component={Calendar} />                       
+                        <PrivateRoute exact path="/calendar" component={Calendar} />
+                        <PrivateRoute exact path="/twitter" component={Twitter} />
                     </Switch>
                     {/* <Footer />  Needs some work before implementation*/}
                 </div>                

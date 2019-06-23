@@ -1,12 +1,11 @@
 const express = require("express");
-const path = require("path");
 const PORT = process.env.PORT || 3001;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const passport = require("passport");
-const users = require("./routes/api/users");
 const routes = require("./routes");
+const session = require('express-session');
 
 const app = express();
 
@@ -35,7 +34,9 @@ mongoose.connect(db, { useNewUrlParser: true })
 .catch(err => console.log(err));
 
 //Passport middleware
+app.use(session({ secret: 'tryandcrackthis', resave: true,saveUninitialized: true })); // session secret
 app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 
 //Passport Config
 require("./config/passport")(passport);

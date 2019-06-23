@@ -105,9 +105,10 @@ class Privacy extends Component {
 <h2>Contact Us</h2>
 <p>If you have any questions about this Privacy Policy, please contact us:</p>
 <ul>
-        <li>By email: adming@bind-it-app.com</li>
+        <li>By email: admin@bind-it-app.com</li>
           
         </ul>
+        <br></br>
             </div>
         )
     }
