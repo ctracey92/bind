@@ -17,7 +17,7 @@ import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 import '@fullcalendar/timegrid/main.css';
 
-import Sidenav from "../layout/Sidenav";
+import Sidenav from "../layout/sidenav/Sidenav";
 
 import API from "../../utils/events";
 

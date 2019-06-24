@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import { Link } from "react-router-dom";
 
-import Sidenav from "../layout/Sidenav"
+import Sidenav from "../layout/sidenav/Sidenav";
 
 class Dashboard extends Component {
     onLogoutClick = e => {
@@ -24,36 +24,33 @@ class Dashboard extends Component {
                         <div className="col s12 m6">
                             <div className="card grey darken-3">
                                 <div className="card-content white-text">
-                                    <span className="card-title">Action 1</span>
-                                    <p>View and Edit your clanedar here!</p>
+                                    <span className="card-title">Calendar</span>
+                                    <p>Manage your Calendar here!</p>
                                 </div>
                                 <div className="card-action">
                                     <Link to="/calendar">Calendar</Link>
-                                    <a href="#">This is a link</a>
                                 </div>
                             </div>
                         </div>
                         <div className="col s12 m6">
                             <div className="card grey darken-3">
                                 <div className="card-content white-text">
-                                    <span className="card-title">Action 2</span>
-                                    <p>I do something.</p>
+                                    <span className="card-title">Twitter</span>
+                                    <p>Manage your IG here!</p>
                                 </div>
                                 <div className="card-action">
-                                    <a href="#">This is a link</a>
-                                    <a href="#">This is a link</a>
+                                    <Link to="/twitter">Twitter</Link>
                                 </div>
                             </div>
                         </div>
                         <div className="col s12 m6">
                             <div className="card grey darken-3">
                                 <div className="card-content white-text">
-                                    <span className="card-title">Action 3</span>
-                                    <p>I do something</p>
+                                    <span className="card-title">Instagram </span>
+                                    <p>Manage your IG here!</p>
                                 </div>
                                 <div className="card-action">
-                                    <a href="#">This is a link</a>
-                                    <a href="#">This is a link</a>
+                                    <Link to="/instagram">Instagram</Link>
                                 </div>
                             </div>
                         </div>
@@ -64,8 +61,8 @@ class Dashboard extends Component {
                                     <p>I do something</p>
                                 </div>
                                 <div className="card-action">
-                                    <a href="#">This is a link</a>
-                                    <a href="#">This is a link</a>
+                                    {/* <a href="#">This is a link</a>
+                                    <a href="#">This is a link</a> */}
                                 </div>
                             </div>
                         </div>

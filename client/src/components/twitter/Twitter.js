@@ -2,9 +2,7 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {logoutUser} from "../../actions/authActions";
-require('dotenv').config();
-
-
+import Sidenav from "../layout/sidenav/Sidenav";
 
 class Twitter extends Component {
     state = {
@@ -16,10 +14,6 @@ class Twitter extends Component {
         this.props.logoutUser();
     };
 
-    componentDidMount(){
-        console.log(process.env)
-        console.log("^Looooook")
-    }
 
     authorizeTwitter = e => {
         e.preventDefault();
@@ -27,11 +21,15 @@ class Twitter extends Component {
     }
 
     render (){
-        return(
-            <div className="container">
-                <h1>Twitter</h1>
-            </div>
-       )
+            const { user } = this.props.auth;
+            return (
+                <div>
+                    <Sidenav username={user.username} logout={this.onLogoutClick} />
+                    <div className="container">
+                        <h1>Twitter</h1>
+                    </div >
+                </div>
+           )
     }
 }
 
