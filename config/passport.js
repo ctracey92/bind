@@ -33,7 +33,15 @@ module.exports = passport => {
     (token,tokenSecret,profile,done) => {
         console.log("TOKEN: ",token)
         console.log("TOKEN SECRET: ", tokenSecret)
-        console.log("PROFILE: ", profile.username)
+        console.log("PROFILE ID: ", profile.id)
+        console.log("USERNAME: ", profile.username)
+        console.log("FOLLOWER COUNT: ", profile._json.followers_count)
+        console.log("FOLLOWING: ", profile._json.friends_count)
+        console.log("IMAGE: ", profile._json.profile_image_url)
+        console.log(profile)
+
+        // localStorage.setItem('token',token);
+        // console.log("PROFILE: ", profile)
         // Account.findOne({domain: 'twitter.com', uid: profile.id}, (err,account) => {
         //     if(err) {return done(err); }
         //     if(account) {return done(null,account); }

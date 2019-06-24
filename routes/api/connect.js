@@ -7,6 +7,7 @@ router.get('/twitter',
 
 router.get('/twitter/callback', passport.authorize('twitter-authz',{failureRedirect:'http://127.0.0.1:3000/dashboard'}),
     (req,res) => {
+        console.log("here is some stuff")
         console.log("USER: ", req.user)
         console.log("Account: ", req.user)
     }

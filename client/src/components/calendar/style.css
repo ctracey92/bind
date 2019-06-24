@@ -1,21 +1,4 @@
-.fc-event, .fc-button-group{
-    background-color:#424242;
+.calendar {
+    max-width: 1100px;
+    max-height: 600px;
 }
-
-button{
-    background-color: #424242 
-}
-
-.fc, .fc-view-container, .fc-view, .fc-bg, .fc-day-grid, .fc-day-grid-container, .fc-widget-content, .fc-body, .fc-scroller{
-    max-width: 800px;
-    height: 400px;
-}
-.calendar{
-    max-height: 400px;
-}
-
-table{
-    max-height: 400px;
-}
-
- 

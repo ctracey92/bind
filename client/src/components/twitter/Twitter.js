@@ -21,6 +21,11 @@ class Twitter extends Component {
         console.log("^Looooook")
     }
 
+    authorizeTwitter = e => {
+        e.preventDefault();
+        
+    }
+
     render (){
         return(
             <div className="container">
