@@ -5,7 +5,7 @@ class Navbar extends Component{
     render() {
         return(
             <div className="navbar-fixed">
-                <nav className="z-depth-0 grey darken-4">
+                <nav className="z-depth-0 black">
                     <div className="nav=wrapper white">
                         <Link
                           to="/"

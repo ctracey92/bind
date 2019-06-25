@@ -21,9 +21,13 @@ import Sidenav from "../layout/sidenav/Sidenav";
 
 import API from "../../utils/events";
 
-class Calendar extends Component {
+import Modal from "react-modal";
+// import ReactDOM from 'react-dom';
+import { throws } from "assert";
 
+class Calendar extends Component {
     state = {
+        modalIsOpen: false,
         events: [
             { title: 'event 1', date: '2019-06-19' },
             { title: 'event 2', date: '2019-06-20', start: '2019-06-20T12:30:00', allDay: false, id: "1" },
@@ -33,16 +37,13 @@ class Calendar extends Component {
             { title: 'event 6', date: '2019-06-20', start: '2019-06-20T12:30:00', allDay: false },
             { title: 'event 7', date: '2019-06-20', start: '2019-06-20T15:30:00', allDay: false }
         ],
+
     }
-
-
 
     onLogoutClick = e => {
         e.preventDefault();
         this.props.logoutUser();
     }
-
-
 
     getEvents = () => {
         API.getEvents()
@@ -63,9 +64,19 @@ class Calendar extends Component {
             .catch(err => console.log(err));
     };
 
+    openModal = () => {
+        this.setState({modalIsOpen: true})
+    };
+
+    closeModal = () => {
+        this.setState({modalIsOpen: false})
+    }
+
     componentDidMount() {
         this.getEvents();
-    }
+    };
+
+    
 
     
 
@@ -75,36 +86,38 @@ class Calendar extends Component {
     };
 
 
-
-
-
-
     render() {
-
+        //Holding off on styling for now.
+        // const customStyles = {
+        //     content : {
+        //     //   top                   : '50%',
+        //     //   left                  : '50%',
+        //     //   right                 : 'auto',
+        //     //   bottom                : 'auto',
+        //     //   marginRight           : '-50%',
+        //     //   transform             : 'translate(-50%, -50%)',
+        //       backgroundColor       : 'grey'
+        //     }
+        //   };
         const { user } = this.props.auth;
         document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.modal');
-            var instances = M.Modal.init(elems);
-         });
-
-
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems);
+          });
         return (
             <div className="calendar">
-                <a className="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-                <div id="modal1" className="modal">
-                    <div className="modal-content">
-                        <h4>Modal Header</h4>
-                        <p>A bunch of text</p>
-                    </div>
-                    <div className="modal-footer">
-                        <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
-                    </div>
-                </div>
+                <Modal
+                    isOpen={this.state.modalIsOpen}
+                    closeModal={this.closeModal}
+                >   <form>
+                    
+                    </form>
+                    <input type="text" class="datepicker">Select Date</input>
+                    <p>THIS IS A TEST</p>
+                    <button onClick={this.closeModal}>Close</button>
+                </Modal>
                 <Sidenav username={user.username} logout={this.onLogoutClick} />
 
-                {/* <button onClick={this.addEvent}>To add Event</button>
-                <DashButton />
-                <br /> */}
                 <div className="row">
                     <div className="col s4">
 
@@ -116,10 +129,8 @@ class Calendar extends Component {
                                 dateClick={this.handleDateClick}
                                 customButtons={{
                                     myCustomButton: {
-                                      text: 'custom!',
-                                      click: function() {
-                                        
-                                      },
+                                      text: 'Add Event',
+                                      click: this.openModal
                                     },
                                   }}
                                 header={{
