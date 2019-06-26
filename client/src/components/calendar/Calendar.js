@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import Select from 'react-select';
 
 import FullCalendar from '@fullcalendar/react'
 
@@ -9,9 +10,6 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
-
-import M from "materialize-css";
-
 
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
@@ -21,23 +19,21 @@ import Sidenav from "../layout/sidenav/Sidenav";
 
 import API from "../../utils/events";
 
-import Modal from "react-modal";
+import Modal from "react-responsive-modal";
 // import ReactDOM from 'react-dom';
-import { throws } from "assert";
+
+//Date Picker
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class Calendar extends Component {
     state = {
+        color: null,
         modalIsOpen: false,
-        events: [
-            { title: 'event 1', date: '2019-06-19' },
-            { title: 'event 2', date: '2019-06-20', start: '2019-06-20T12:30:00', allDay: false, id: "1" },
-            { title: 'event 3', date: '2019-06-20', start: '2019-06-20T15:30:00', allDay: false },
-            { title: 'event 4', date: '2019-06-20', start: '2019-06-20T12:30:00', allDay: false },
-            { title: 'event 5', date: '2019-06-20', start: '2019-06-20T15:30:00', allDay: false },
-            { title: 'event 6', date: '2019-06-20', start: '2019-06-20T12:30:00', allDay: false },
-            { title: 'event 7', date: '2019-06-20', start: '2019-06-20T15:30:00', allDay: false }
-        ],
-
+        events: [],
+        start: "",
+        end: "",
+        title: "",
     }
 
     onLogoutClick = e => {
@@ -49,77 +45,127 @@ class Calendar extends Component {
         API.getEvents()
             .then(res => {
                 console.log(res)
-                // this.setState({ events: res.data })
+                this.setState({ events: res.data })
             })
             .catch(err => console.log(err));
     };
 
-    addEvent = e => {
-        e.preventDefault();
-        API.addEvent({
-            title: "stringTest",
-            date: "2019-06-21"
-        })
-            .then(this.getEvents)
-            .catch(err => console.log(err));
-    };
-
     openModal = () => {
-        this.setState({modalIsOpen: true})
+        this.setState({ modalIsOpen: true })
     };
 
     closeModal = () => {
-        this.setState({modalIsOpen: false})
+        this.setState({ modalIsOpen: false })
+    };
+
+    handleStartChange = (date) => {
+        this.setState({
+            start: date
+        });
+    };
+
+    handleEndChange = (date) => {
+        this.setState({
+            end: date
+        });
+    };
+
+    handleTitleChange = (event) => {
+        this.setState({ title: event.target.value });
     }
+        ;
+
+    handleChange = color => {
+        this.setState({ color });
+        console.log(`Option selected:`, color);
+    };
+
+    add = e => {
+        let end = this.state.end ? this.state.end : this.state.start;
+        if (end < this.state.start) {
+            end = this.state.start
+        };
+        e.preventDefault();
+        API.addEvent({
+            title: this.state.title,
+            start: this.state.start,
+            end: end,
+            backgroundColor: this.state.color.value,
+        })
+            .then(this.closeModal())
+            .then(this.getEvents())
+            .then(this.setState({ start: "", end: "", title: "" }))
+            .catch(err => console.log(err));
+
+    }
+
+
+
+
 
     componentDidMount() {
         this.getEvents();
     };
-
-    
-
-    
-
-    handleDateClick = arg => {
-        console.log(arg);
-    
-    };
-
-
     render() {
-        //Holding off on styling for now.
-        // const customStyles = {
-        //     content : {
-        //     //   top                   : '50%',
-        //     //   left                  : '50%',
-        //     //   right                 : 'auto',
-        //     //   bottom                : 'auto',
-        //     //   marginRight           : '-50%',
-        //     //   transform             : 'translate(-50%, -50%)',
-        //       backgroundColor       : 'grey'
-        //     }
-        //   };
+        const { color } = this.state;
+        const options = [
+            { value: 'purple', label: 'Instagram Post' },
+            { value: 'blue', label: 'Twitter Post' },
+            { value: 'red', label: 'Sale' },
+            { value: 'green', label: 'Email Blast' },
+
+        ];
         const { user } = this.props.auth;
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.datepicker');
-            var instances = M.Datepicker.init(elems);
-          });
         return (
             <div className="calendar">
                 <Modal
-                    isOpen={this.state.modalIsOpen}
-                    closeModal={this.closeModal}
+                    open={this.state.modalIsOpen}
+                    onClose={this.closeModal}
+                // style={customStyles}
                 >   <form>
-                    
+                        <b>Start Date: </b>
+                        <DatePicker
+                            selected={this.state.start}
+                            onChange={this.handleStartChange}
+                            showTimeSelect
+                            dateFormat="Pp"
+
+                        />
+                        {/* <br /> */}
+                        <b>End Date: </b>
+                        <DatePicker
+                            selected={this.state.end}
+                            onChange={this.handleEndChange}
+                            showTimeSelect
+                            dateFormat="Pp"
+                        />
+                        <br />
+                        <b>Select Event Type: </b>
+                        <Select
+                            value={color}
+                            onChange={this.handleChange}
+                            options={options}
+                        />
+                        <br />
+                        <span>
+                            <b>Event Title: </b>
+                            <input type="text" value={this.state.title} onChange={this.handleTitleChange} style={{ maxWidth: "183.33px" }} />
+                        </span>
+                        <br />
+                        <button className=" btn-large hoverable grey darken-2" onClick={this.add} style={{
+                            width: "150px",
+                            borderRadius: "3px",
+                            letterSpacing: "1.5px",
+                            marginTop: "1rem",
+                        }}>Add Event</button>
                     </form>
-                    <input type="text" class="datepicker">Select Date</input>
-                    <p>THIS IS A TEST</p>
-                    <button onClick={this.closeModal}>Close</button>
                 </Modal>
                 <Sidenav username={user.username} logout={this.onLogoutClick} />
 
+
+
                 <div className="row">
-                    <div className="col s4">
+                    <div className="col s2">
 
                     </div>
                     <div className="col s8">
@@ -129,10 +175,10 @@ class Calendar extends Component {
                                 dateClick={this.handleDateClick}
                                 customButtons={{
                                     myCustomButton: {
-                                      text: 'Add Event',
-                                      click: this.openModal
+                                        text: 'Add Event',
+                                        click: this.openModal
                                     },
-                                  }}
+                                }}
                                 header={{
                                     left: "prev,next today, myCustomButton",
                                     center: "title",
