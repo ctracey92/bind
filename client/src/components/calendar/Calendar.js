@@ -42,7 +42,7 @@ class Calendar extends Component {
     }
 
     getEvents = () => {
-        API.getEvents()
+        API.getEvents(this.props.auth.user.id)
             .then(res => {
                 console.log(res)
                 this.setState({ events: res.data })
@@ -91,6 +91,7 @@ class Calendar extends Component {
             start: this.state.start,
             end: end,
             backgroundColor: this.state.color.value,
+            user: this.props.auth.user.id
         })
             .then(this.closeModal())
             .then(this.getEvents())

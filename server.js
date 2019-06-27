@@ -42,7 +42,7 @@ app.use(passport.session()); // persistent login sessions
 require("./config/passport")(passport);
 
 app.use(routes);
-//Testing
+
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);

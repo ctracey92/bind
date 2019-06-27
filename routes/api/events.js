@@ -3,8 +3,8 @@ const router = express.Router();
 
 const Event = require("../../client/models/event");
 
-router.get("/",(req,res) => {
-    Event.find({},(err,data) => {
+router.get("/:user",(req,res) => {
+    Event.find({user: req.params.user},(err,data) => {
         if(!err){res.json(data)}
         else{throw err}
     })

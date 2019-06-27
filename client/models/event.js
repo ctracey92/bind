@@ -15,6 +15,9 @@ const eventSchema = new Schema({
     },
     backgroundColor: {
         type: String,
+    },
+    user: {
+        type: String
     }
 
 });

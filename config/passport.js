@@ -47,19 +47,7 @@ module.exports = passport => {
 
             console.log("TWITTER PROFILE: ", twitterProfile)
 
-            // localStorage.setItem('token',token);
-            // console.log("PROFILE: ", profile)
-            // Account.findOne({domain: 'twitter.com', uid: profile.id}, (err,account) => {
-            //     if(err) {return done(err); }
-            //     if(account) {return done(null,account); }
 
-            //     var account = new Account();
-            //     account.domain = 'twitter.com';
-            //     account.uid = profile.id;
-            //     var t = { kind: 'oauth', token: token, attributes: {tokenSecret: tokenSecret} };
-            //     account.tokens.push(t);
-            //     return done(null,account);
-            // });
             return done(null)
         }
     ));

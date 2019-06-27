@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Sidenav from "../layout/sidenav//Sidenav"
 
+import API from "../../utils/instagram"
+
 class Instagram extends Component {
 
     onLogoutClick = e => {
@@ -11,13 +13,20 @@ class Instagram extends Component {
         this.props.logoutUser();
     };
 
+    authorize = () => {
+        API.authorize()
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    }
+
     render() {
         const { user } = this.props.auth;
         return (
-            <div>
+            <div className="container valign-wrapper">
                 <Sidenav username={user.username} logout={this.onLogoutClick} />
                 <div className="container">
                     <h1>Instagram</h1>
+                    <button onClick={this.authorize}>Authorize IG</button>
                 </div >
             </div>
        )
