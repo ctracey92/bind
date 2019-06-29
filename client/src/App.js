@@ -22,7 +22,6 @@ import Privacy from "./components/privacy/Privacy";
 import Terms from "./components/terms/Terms";
 import Twitter from "./components/twitter/Twitter"
 import Instagram from "./components/instagram/Instagram"
-import Footer from "./components/layout/Footer";
 
 //Check for token to keep user logged in...
 if(localStorage.jwToken){

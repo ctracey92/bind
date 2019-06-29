@@ -4,7 +4,6 @@ const TwitterStrategy = require('passport-twitter');
 const InstagramStrategy = require("passport-instagram");
 const mongoose = require("mongoose");
 const User = mongoose.model("users");
-// const Account = mongoose.model("account");
 const keys = require("./keys");
 const twitterKeys = require("../twitterKeys");
 const instagramKeys = require("../instagramKeys");

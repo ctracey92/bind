@@ -1,18 +1,20 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {logoutUser} from "../../actions/authActions";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
 import Sidenav from "../layout/sidenav/Sidenav";
-import TwiterLogin from "react-twitter-auth";
-
-import API from "../../utils/twitter";
+import API from "../../utils/socialAuth";
 
 class Twitter extends Component {
     state = {
-        isAuthenticated: false,
-        user: null,
-        token: '',
-
+        authorized: false,
+        followerCount: "",
+        following: "",
+        image: "",
+        profileID: "",
+        profileUsername: "",
+        token: "",
+        tokenSecret: "",
     };
 
     onLogoutClick = e => {
@@ -22,48 +24,54 @@ class Twitter extends Component {
 
 
     authorizeTwitter = e => {
-        e.preventDefault();
-        
-    }
+        const id = this.props.auth.user.id
+        console.log(id)
+        API.authorized(id)
+            .then(res => {
+                const data = res.data.twitter;
 
-    authorizeTwitter = e => {
-        API.authorize()
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => console.log(err))
+                if (data.profileID) {
+                    this.setState({
+                        authorized: true,
+                        followerCount: data.followerCount,
+                        following: data.following,
+                        image: data.image,
+                        profileID: data.profileID,
+                        profileUsername: data.profileUsername,
+                        token: data.token,
+                        tokenSecret: data.tokenSecret,
+                    })                   
+                }
+            })
+            .catch(err => console.log(err))
 
 
     };
 
-    //------------------------------------------------
-    // onSuccess = (response) => {
-    //     const token = response.headers.get('x-auth-token');
-    //     response.json().then(user => {
-    //         if(token){
-    //             this.setState({isAuthenticated: true, user: user, token: token})
-    //         }
-    //     });
-    // };
+    componentDidMount() {
+        this.authorizeTwitter()
+    }
 
-    onFailed = err => console.log(err);
+    postToTwitter = (e) => {
 
-    render (){
-            const { user } = this.props.auth;
-            let url = "http://127.0.0.1:3001/api/connect/twitter/" + user.id;
-            // let content = this.state.isAuthenticated ? (<div><p>Authenticated <div>{this.state.user}</div></p></div>) : (<TwitterLogin loginUrl="http://localhost:3001/api/connect/twitter"
-            // onFailure={this.onFailed} onSuccess={this.onSuccess}
-            // requestTokenUrl="http://localhost:3001/api/connect/twitter/reverse"/>)
-            return (
-                <div className="container valign-wrapper">
-                    <Sidenav username={user.username} logout={this.onLogoutClick} />
-                    <div className="container">
-                        <h1>Twitter</h1>
-                        <a href={url}><button>Authorize Twitter</button></a>
-                    </div >
-                    {/* {content} */}
-                </div>
-           )
+    }
+
+    render() {
+        const { user } = this.props.auth;
+        let url = "http://127.0.0.1:3001/api/connect/twitter/" + user.id;
+        let postUrl = "http://127.0.0.1:3001/api/connect/twitter/post/";
+
+        let content = this.state.authorized ? (<div><p>Authenticated <div>{this.state.profileUsername}</div></p><a href={postUrl}><button>Post!</button></a></div>) : (<a href={url}><button>Authorize Twitter</button></a>)
+
+        return (
+            <div className="container valign-wrapper">
+                <Sidenav username={user.username} logout={this.onLogoutClick} />
+                <div className="container">
+                    <h1>Twitter</h1>
+                    {content}
+                </div >
+            </div>
+        )
     }
 }
 

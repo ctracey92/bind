@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import M from "materialize-css";
+
 
 function Sidenav(props) {
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems);
-    })
-
-
     return (
         <div>
             <ul id="slide-out" className="sidenav sidenav-fixed">
@@ -18,7 +11,7 @@ function Sidenav(props) {
                         {/* <div className="background">
           <img src="images/office.jpg">
         </div> */}
-                        <img className="square" src="https://pbs.twimg.com/media/D92A4_fVAAApfGL.jpg" style={{ width: "200px", height: "200px" }} />
+                        <img className="square" alt="bind-logo" src="https://pbs.twimg.com/media/D92A4_fVAAApfGL.jpg" style={{ width: "200px", height: "200px" }} />
                         <h4>
                             <b>Welcome,</b> {props.username}
                         </h4>

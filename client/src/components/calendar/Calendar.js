@@ -170,7 +170,7 @@ class Calendar extends Component {
 
                     </div>
                     <div className="col s8">
-                        <div className="container valign-wrapper" className="container valign-wrapper">
+                        <div className="container valign-wrapper">
                             <FullCalendar
 
                                 dateClick={this.handleDateClick}
