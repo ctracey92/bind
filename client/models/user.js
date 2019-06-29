@@ -20,6 +20,9 @@ const userSchema = new Schema({
     },
     twitter: {
         type: Object,
+    },
+    instagram: {
+        type: Object
     }
 
 });

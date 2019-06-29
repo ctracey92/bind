@@ -13,6 +13,8 @@ const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretOrKey;
 
+mongoose.set('useFindAndModify', false);
+
 module.exports = passport => {
     //Local Strategy for registering users, and sign-in
     passport.use(
@@ -32,9 +34,15 @@ module.exports = passport => {
     passport.use('twitter-authz', new TwitterStrategy({
         consumerKey: twitterKeys.TWITTER_CONSUMER_KEY,
         consumerSecret: twitterKeys.TWITTER_CONSUMER_SECRET,
-        callbackURL: "http://127.0.0.1:3001/api/connect/twitter/callback"
+        callbackURL: "http://127.0.0.1:3001/api/connect/twitter/callback",
+        passReqToCallback: true,
     },
-        (token, tokenSecret, profile, done) => {
+        (req, token, tokenSecret, profile, done) => {
+            let sessionId = req.sessionID;
+            let userID = "sessionStore.sessions." + sessionId;
+            let localUser = userID.split('.').reduce((o, i) => o[i], req)
+            let sessionObj = JSON.parse(localUser)
+            // console.log(sessionObj.state)
             let twitterProfile = {
                 token: token,
                 tokenSecret: tokenSecret,
@@ -45,19 +53,25 @@ module.exports = passport => {
                 image: profile._json.profile_image_url,
             }
 
-            console.log("TWITTER PROFILE: ", twitterProfile)
+            User.findByIdAndUpdate(sessionObj.state,  {twitter: twitterProfile}, (err,res) => {
+                if(err) console.log(err)
+                console.log(res)
+            } )
 
 
             return done(null)
         }
     ));
 
+
     passport.use("instagram-authz", new InstagramStrategy({
         clientID: instagramKeys.INSTAGRAM_CLIENT_ID,
         clientSecret: instagramKeys.INSTAGRAM_CLIENT_SECRET,
         callbackURL: "http://127.0.0.1:3001/api/connect/instagram/callback",
+        passReqToCallback: true,
+
     },
-        function (accessToken, refreshToken, profile, done) {
+        function (req, accessToken, refreshToken, profile, done) {
 
             let igProfile = {
                 accessToken: accessToken,
@@ -70,7 +84,14 @@ module.exports = passport => {
                 is_business: profile._json.data.is_business,
                 counts: profile._json.data.counts,
             }
-            console.log("IG Profile: ", igProfile)
+
+            User.findByIdAndUpdate(req.query.state, { $set: { instagram: igProfile } }, (err, res) => {
+                if (err) console.log(err)
+            })
+
+
+
+
             return done(null)
         })
     );

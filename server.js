@@ -11,6 +11,20 @@ const app = express();
 
 const db = require("./config/keys").mongoURI;
 
+const cors = require("cors")
+
+app.options('*', cors())
+
+let corsOptions = {
+  origin: ["http://127.0.0.1:3000/twitter","http://127.0.0.1:3000/"],
+  credentials: true,
+  methods: 'GET,HEAD,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
+
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));

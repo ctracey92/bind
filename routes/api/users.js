@@ -33,6 +33,8 @@ router.post("/register",(req, res) => {
                 username: req.body.username,
                 email: req.body.email,
                 password: req.body.password,
+                twitter: {"holder": "holder"},
+                instagram: {"holder": "holder"},
             });
 
             //Hasing the password before we save
