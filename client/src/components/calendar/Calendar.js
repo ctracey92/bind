@@ -81,6 +81,7 @@ class Calendar extends Component {
     };
 
     add = e => {
+        console.log(this.props.auth.user.id,"HERE")
         let end = this.state.end ? this.state.end : this.state.start;
         if (end < this.state.start) {
             end = this.state.start
@@ -94,7 +95,7 @@ class Calendar extends Component {
             user: this.props.auth.user.id
         })
             .then(this.closeModal())
-            .then(this.getEvents())
+            .then(this.getEvents(this.props.auth.user.id))
             .then(this.setState({ start: "", end: "", title: "" }))
             .catch(err => console.log(err));
 
