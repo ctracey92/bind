@@ -21,12 +21,14 @@ class Instagram extends Component {
 
     render() {
         const { user } = this.props.auth;
+        let url = "http://127.0.0.1:3001/api/connect/instagram/" + user.id;
         return (
             <div className="container valign-wrapper">
                 <Sidenav username={user.username} logout={this.onLogoutClick} />
                 <div className="container">
                     <h1>Instagram</h1>
-                    <button onClick={this.authorize}>Authorize IG</button>
+                    <a href={url}><button>Authorize IG</button></a>
+                    
                 </div >
             </div>
        )
