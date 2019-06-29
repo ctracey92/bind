@@ -72,8 +72,8 @@ class Calendar extends Component {
 
     handleTitleChange = (event) => {
         this.setState({ title: event.target.value });
-    }
-        ;
+    };
+        
 
     handleChange = color => {
         this.setState({ color });

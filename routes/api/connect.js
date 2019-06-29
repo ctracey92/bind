@@ -8,41 +8,6 @@ const twitterKeys = require("../../twitterKeys");
 router.options('*', cors())
 
 //Twitter Routes
-router.get("/twitter/post/", (req, res) => {
-    const userID = req.params.id;
-    let token = ""
-    let tokenSecret = ""
-
-            let client = new TwitterClient({
-                consumer_key: twitterKeys.TWITTER_CONSUMER_KEY,
-                consumer_secret: twitterKeys.TWITTER_CONSUMER_SECRET,
-                access_token_key: token,
-                access_token_secret: tokenSecret,
-            });
-    // function get(userID) {
-    //     User.findById(userID, (err, res) => {
-    //         console.log(res)
-    //         const data = res.twitter
-    //         if (err) { console.log(err) }
-    //         else {
-    //             client.access_token_key = data.token
-    //             client.access_token_secret = data.tokenSecret
-
-    //         }
-
-    //     })
-    // }
-        client.post('statuses/update', { status: 'I Love Twitter A lot' }, function (error, tweet, response) {
-            if (error){
-                console.log(error) 
-                return res.sendStatus(500)};
-            console.log(tweet);  // Tweet body.
-            // console.log(response);  // Raw response object.
-        })
-
-
-})
-
 let states = {}
 router.get('/twitter/:id', (req, res, next) => {
     const params = req.params.id
