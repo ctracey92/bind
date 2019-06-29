@@ -42,7 +42,7 @@ module.exports = passport => {
             let userID = "sessionStore.sessions." + sessionId;
             let localUser = userID.split('.').reduce((o, i) => o[i], req)
             let sessionObj = JSON.parse(localUser)
-            // console.log(sessionObj.state)
+
             let twitterProfile = {
                 token: token,
                 tokenSecret: tokenSecret,
@@ -85,7 +85,7 @@ module.exports = passport => {
                 counts: profile._json.data.counts,
             }
 
-            User.findByIdAndUpdate(req.query.state, { $set: { instagram: igProfile } }, (err, res) => {
+            User.findByIdAndUpdate(req.query.state, { instagram: igProfile }, (err, res) => {
                 if (err) console.log(err)
             })
 
