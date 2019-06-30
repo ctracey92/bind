@@ -18,7 +18,8 @@ const eventSchema = new Schema({
     },
     user: {
         type: String
-    }
+    },   
+    
 
 });
 

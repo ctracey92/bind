@@ -20,7 +20,9 @@ class Twitter extends Component {
         profileUsername: "",
         token: "",
         tokenSecret: "",
-        status: ""
+        status: "",
+        tweetLength: 140,
+        tweetColor: "black"
     };
 
     openModal = () => {
@@ -82,11 +84,16 @@ class Twitter extends Component {
                 notify.show("Tweet Unsuccessful", "error")
                 console.log(err)
             })
+        this.setState({tweetColor: "black", tweetLength: 140, status: ""})
         this.closeModal();
     };
 
     handleStatusChange = e => {
         this.setState({ status: e.target.value })
+        this.setState({tweetLength: this.state.tweetLength-1})
+        if(this.state.tweetLength < 0){
+            this.setState({tweetColor: "red"})
+        }
     };
 
     getFavorites = (e) => {
@@ -106,16 +113,22 @@ class Twitter extends Component {
                 <Modal open={this.state.modalIsOpen} onClose={this.closeModal}>
                     <div>
                         <form>
+                            <div className="chip">
+                                <img src={this.state.image} alt="Twitter Profile Pic" />
+                                @{this.state.profileUsername}
+                            </div>
                             <span>
-                                <b>Tweet: </b>
-                                <input type="text" value={this.state.status} onChange={this.handleStatusChange} style={{ maxWidth: "183.33px" }} />
+                                <b>Tweet: </b>                           
+                                <textarea id="textarea1" className="materialize-textarea" value={this.state.status} onChange={this.handleStatusChange}></textarea>
                             </span>
+                            <br />
                             <button className=" btn-large hoverable grey darken-2" onClick={this.postToTwitter} style={{
                                 width: "150px",
                                 borderRadius: "3px",
                                 letterSpacing: "1.5px",
                                 marginTop: "1rem",
                             }}>Tweet It!</button>
+                            Characters Left: <b style={{color: this.state.tweetColor}}>{this.state.tweetLength}</b>
                         </form>
                     </div>
                 </Modal>
