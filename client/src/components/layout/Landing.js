@@ -1,7 +1,26 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
 class Landing extends Component {
+  
+  componentDidMount(){
+    //If logged in, redirects to dashboard
+    if (this.props.auth.isAuthenticated){
+        this.props.history.push("/dashboard");
+    }
+}
+
+componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+        this.props.history.push("/dashboard"); //Send user to dash when they login
+    }
+    if (nextProps.errors){
+        this.setState({
+            errors: nextProps.errors,
+        });
+    }
+}
     render() {
       return (
         <div style={{ height: "75vh" }} className="container valign-wrapper">
@@ -46,4 +65,11 @@ class Landing extends Component {
       );
     }
 }
-  export default Landing;
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+export default connect(
+  mapStateToProps,
+) (Landing);
