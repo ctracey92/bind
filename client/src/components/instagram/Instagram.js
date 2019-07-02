@@ -79,7 +79,7 @@ class Instagram extends Component {
 
     postToInstagram = (e) => {
         e.preventDefault();
-        this.setState({status: ""})
+        this.setState({ status: "" })
         this.closeModal();
     };
 
@@ -98,7 +98,7 @@ class Instagram extends Component {
                         <div className="card-content">
                             <p>Bio: {this.state.bio}</p>
                             <p>Website: {this.state.website}</p>
-                            <p>Followers: {this.state.counts.followed_by} | Following: {this.state.counts.follows} | Posts: {this.state.counts.media}</p>
+                            <p>Followers: <b>{this.state.counts.followed_by}</b> | Following: <b>{this.state.counts.follows}</b> | Posts: <b>{this.state.counts.media}</b></p>
                         </div>
                     </div>
                 </div>
@@ -121,14 +121,18 @@ class Instagram extends Component {
                                 <input class="file-path validate" type="text" placeholder="Upload one or more files" />
                             </div>
                         </div>
-                        <textarea id="textarea1" className="materialize-textarea" value={this.state.status} onChange={this.handleStatusChange}  style={{width: "600px"}}></textarea>
+                        <textarea id="textarea1" className="materialize-textarea" value={this.state.status} onChange={this.handleStatusChange} style={{ width: "600px" }}></textarea>
                         <br />
-                        <button className=" btn-large hoverable grey darken-2" onClick={this.postToInstagram} style={{
-                                width: "150px",
-                                borderRadius: "3px",
-                                letterSpacing: "1.5px",
-                                marginTop: "1rem",
-                            }}>Post It!</button>
+                        <span>
+                            <button className=" btn-large" onClick={this.postToInstagram} style={{ backgroundColor: "#e4e4e4", color: "black" }}>
+                                Post: <b> </b> 
+                                <div class="chip">
+                                    <img src={this.state.image} alt="IG Profile Pic" />
+                                    @{this.state.username}
+                                </div>
+                            </button>
+
+                        </span>
                     </form>
 
                 </Modal>

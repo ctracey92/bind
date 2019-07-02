@@ -8,6 +8,7 @@ import twitterAPI from "../../utils/twitter"
 import Notifications, { notify } from 'react-notify-toast'
 import Modal from "react-responsive-modal";
 import { throws } from "assert";
+import Favorites from "./favorites";
 
 class Twitter extends Component {
     state = {
@@ -22,7 +23,8 @@ class Twitter extends Component {
         tokenSecret: "",
         status: "",
         tweetLength: 140,
-        tweetColor: "black"
+        tweetColor: "black",
+        favorites: [],
     };
 
     openModal = () => {
@@ -90,9 +92,12 @@ class Twitter extends Component {
 
     handleStatusChange = e => {
         this.setState({ status: e.target.value })
-        this.setState({tweetLength: this.state.tweetLength-1})
-        if(this.state.tweetLength < 0){
+        this.setState({tweetLength: 140-this.state.status.length})
+        if(this.state.tweetLength <= -1){
             this.setState({tweetColor: "red"})
+        }
+        if (this.state.tweetLength >= 0){
+            this.setState({tweetColor: "black"})
         }
     };
 
@@ -100,7 +105,10 @@ class Twitter extends Component {
         let token = this.state.token;
         let tokenSecret = this.state.tokenSecret;
         twitterAPI.getFavorites(token, tokenSecret)
-            .then(res => this.setState({ favorites: res.data }))
+            .then(res => {
+                console.log(res.data);
+                this.setState({ favorites: res.data })
+            })
             .catch(err => console.log(err));
     };
 
@@ -119,7 +127,7 @@ class Twitter extends Component {
                             </div>
                             <span>
                                 <b>Tweet: </b>                           
-                                <textarea id="textarea1" className="materialize-textarea" value={this.state.status} onChange={this.handleStatusChange}></textarea>
+                                <textarea id="textarea1" className="materialize-textarea" value={this.state.status} onChange={this.handleStatusChange} onKeyDown={this.handleStatusChange} onKeyUp={this.handleStatusChange}></textarea>
                             </span>
                             <br />
                             <button className=" btn-large hoverable grey darken-2" onClick={this.postToTwitter} style={{
@@ -136,6 +144,20 @@ class Twitter extends Component {
                 <button onClick={this.getFavorites}>Get Favorites</button>
                 <button onClick={this.openModal}>Tweet Something</button>
                 <Notifications />
+                <div className="favorites">
+                            {this.state.favorites.map(item => (
+                                <Favorites 
+                                key={item.id}
+                                id={item.id_str}
+                                retweets={item.retweet_count}
+                                text={item.text}
+                                favorites={item.favorite_count}
+                                user={item.user}
+                                replyTo={item.in_reply_to_screen_name}
+                                retweeted={item.retweeted}
+                                />
+                            ))}
+                </div>
             </div>
         ) : (
                 <a href={url}><button>Authorize Twitter</button></a>)
