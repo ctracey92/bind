@@ -5,8 +5,13 @@ const InstagramStrategy = require("passport-instagram");
 const mongoose = require("mongoose");
 const User = mongoose.model("users");
 const keys = require("./keys");
-const twitterKeys = require("../twitterKeys");
-const instagramKeys = require("../instagramKeys");
+
+
+const TWITTER_CONSUMER_KEY = "DXA0gDYBG5mbFnRvFDN9GF0Xw";
+const TWITTER_CONSUMER_SECRET = "AQ03g7uYv2NUhCsqarwZ3atAbfkSIc0O0tcOELAhWIj7JzhMX3";
+
+const INSTAGRAM_CLIENT_ID = "7f4a13e28eef4e4daad6d4a86a4df77b";
+const INSTAGRAM_CLIENT_SECRET = "bf9e31c8d885454898f334ed7e439ae8";
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -31,8 +36,8 @@ module.exports = passport => {
 
     //Twitter Authorization strategy
     passport.use('twitter-authz', new TwitterStrategy({
-        consumerKey: twitterKeys.TWITTER_CONSUMER_KEY,
-        consumerSecret: twitterKeys.TWITTER_CONSUMER_SECRET,
+        consumerKey: TWITTER_CONSUMER_KEY,
+        consumerSecret: TWITTER_CONSUMER_SECRET,
         callbackURL: "http://127.0.0.1:3001/api/connect/twitter/callback",
         passReqToCallback: true,
     },
@@ -64,8 +69,8 @@ module.exports = passport => {
 
 
     passport.use("instagram-authz", new InstagramStrategy({
-        clientID: instagramKeys.INSTAGRAM_CLIENT_ID,
-        clientSecret: instagramKeys.INSTAGRAM_CLIENT_SECRET,
+        clientID: INSTAGRAM_CLIENT_ID,
+        clientSecret: INSTAGRAM_CLIENT_SECRET,
         callbackURL: "http://127.0.0.1:3001/api/connect/instagram/callback",
         passReqToCallback: true,
 
