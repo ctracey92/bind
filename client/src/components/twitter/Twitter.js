@@ -14,6 +14,7 @@ class Twitter extends Component {
     state = {
         authorized: false,
         modalIsOpen: false,
+        mentionsModal: false,
         followerCount: "",
         following: "",
         image: "",
@@ -33,6 +34,14 @@ class Twitter extends Component {
 
     closeModal = () => {
         this.setState({ modalIsOpen: false })
+    };
+
+    openMentionsModal = () => {
+        this.getMentions()
+    };
+
+    closeMentionsModal = () => {
+        this.setState({ mentionsModal: false })
     };
 
     onLogoutClick = e => {
@@ -58,6 +67,7 @@ class Twitter extends Component {
                         token: data.token,
                         tokenSecret: data.tokenSecret,
                         favorites: [],
+                        mentions: [],
                     })
                 }
             })
@@ -86,18 +96,18 @@ class Twitter extends Component {
                 notify.show("Tweet Unsuccessful", "error")
                 console.log(err)
             })
-        this.setState({tweetColor: "black", tweetLength: 140, status: ""})
+        this.setState({ tweetColor: "black", tweetLength: 140, status: "" })
         this.closeModal();
     };
 
     handleStatusChange = e => {
         this.setState({ status: e.target.value })
-        this.setState({tweetLength: 140-this.state.status.length})
-        if(this.state.tweetLength <= -1){
-            this.setState({tweetColor: "red"})
+        this.setState({ tweetLength: 140 - this.state.status.length })
+        if (this.state.tweetLength <= -1) {
+            this.setState({ tweetColor: "red" })
         }
-        if (this.state.tweetLength >= 0){
-            this.setState({tweetColor: "black"})
+        if (this.state.tweetLength >= 0) {
+            this.setState({ tweetColor: "black" })
         }
     };
 
@@ -112,41 +122,70 @@ class Twitter extends Component {
             .catch(err => console.log(err));
     };
 
+    getMentions = (e) => {
+        let token = this.state.token;
+        let tokenSecret = this.state.tokenSecret;
+        twitterAPI.getMentions(token, tokenSecret)
+            .then(res => {
+                console.log(res.data);
+                this.setState({ mentions: res.data })
+            })
+            .catch(err => console.log(err));
+            this.setState({ mentionsModal: true })
+    };
+
     render() {
         const { user } = this.props.auth;
         let url = "http://127.0.0.1:3001/api/connect/twitter/" + user.id;
 
         let content = this.state.authorized ? (
             <div>
-                <Modal open={this.state.modalIsOpen} onClose={this.closeModal}>
-                    <div>
-                        <form>
-                            <div className="chip">
-                                <img src={this.state.image} alt="Twitter Profile Pic" />
-                                @{this.state.profileUsername}
-                            </div>
-                            <span>
-                                <b>Tweet: </b>                           
-                                <textarea id="textarea1" className="materialize-textarea" value={this.state.status} onChange={this.handleStatusChange} onKeyDown={this.handleStatusChange} onKeyUp={this.handleStatusChange}></textarea>
-                            </span>
-                            <br />
-                            <button className=" btn-large hoverable grey darken-2" onClick={this.postToTwitter} style={{
-                                width: "150px",
-                                borderRadius: "3px",
-                                letterSpacing: "1.5px",
-                                marginTop: "1rem",
-                            }}>Tweet It!</button>
-                            Characters Left: <b style={{color: this.state.tweetColor}}>{this.state.tweetLength}</b>
-                        </form>
-                    </div>
-                </Modal>
-                <p>Authenticated {this.state.profileUsername}</p>
-                <button onClick={this.getFavorites}>Get Favorites</button>
-                <button onClick={this.openModal}>Tweet Something</button>
-                <Notifications />
-                <div className="favorites">
-                            {this.state.favorites.map(item => (
-                                <Favorites 
+                <div className="row">
+                    <img src={this.state.image} alt="Twitter Profile Pic" className="circle btn-floating btn-large" style={{ marginTop: "1rem", marginRight: "2.5px" }} />
+                    <button onClick={this.getFavorites} className=" btn-large hoverable grey darken-2" style={{
+                        marginRight: "2.5px",
+                        marginLeft: "2.5px",
+                        borderRadius: "3px",
+                        letterSpacing: "1.5px",
+                        marginTop: "1rem",
+                    }}>Get Favorites</button>
+                    <button onClick={this.openModal} className=" btn-large hoverable grey darken-2" style={{
+                        marginRight: "2.5px",
+                        marginLeft: "2.5px",
+                        borderRadius: "3px",
+                        letterSpacing: "1.5px",
+                        marginTop: "1rem",
+                    }}>Tweet Something</button>
+                    <button  onClick={this.openMentionsModal} className=" btn-large hoverable grey darken-2" style={{
+                        marginRight: "2.5px",
+                        marginLeft: "2.5px",
+                        borderRadius: "3px",
+                        letterSpacing: "1.5px",
+                        marginTop: "1rem",
+                    }}>Get Mentions</button>
+                </div>
+                <div className="row">
+                    <Modal open={this.state.modalIsOpen} onClose={this.closeModal}>
+                        <div>
+                            <form>
+                                <div className="chip">
+                                    <img src={this.state.image} alt="Twitter Profile Pic" />
+                                    @{this.state.profileUsername}
+                                </div>
+                                <span>
+                                    <b>Tweet: </b>
+                                    <textarea id="textarea1" className="materialize-textarea" value={this.state.status} onChange={this.handleStatusChange} onKeyDown={this.handleStatusChange} onKeyUp={this.handleStatusChange}></textarea>
+                                </span>
+                                <br />
+                                <button className=" btn hoverable grey darken-2" onClick={this.postToTwitter}>Tweet It!</button>
+                                <div style={{ float: "right" }}> Characters Left: <b style={{ color: this.state.tweetColor }}>{this.state.tweetLength}</b> </div>
+                            </form>
+                        </div>
+                    </Modal>
+                    <Modal open={this.state.mentionsModal} onClose={this.closeMentionsModal}>
+                        <h5>Mentions</h5>
+                        {this.state.mentions.map(item => (
+                            <Favorites
                                 key={item.id}
                                 id={item.id_str}
                                 retweets={item.retweet_count}
@@ -155,18 +194,38 @@ class Twitter extends Component {
                                 user={item.user}
                                 replyTo={item.in_reply_to_screen_name}
                                 retweeted={item.retweeted}
-                                />
-                            ))}
+                            />
+                        ))}
+                    </Modal>
+                    <p>Authenticated {this.state.profileUsername}</p>
+                    <Notifications />
+                    <div className="favorites">
+                        {this.state.favorites.map(item => (
+                            <Favorites
+                                key={item.id}
+                                id={item.id_str}
+                                retweets={item.retweet_count}
+                                text={item.text}
+                                favorites={item.favorite_count}
+                                user={item.user}
+                                replyTo={item.in_reply_to_screen_name}
+                                retweeted={item.retweeted}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         ) : (
-                <a href={url}><button>Authorize Twitter</button></a>)
+                <div>
+                    <h1>Twitter</h1>
+                    <a href={url}><button>Authorize Twitter</button></a>
+                </div>
+            )
 
         return (
             <div className="container valign-wrapper">
                 <Sidenav username={user.username} logout={this.onLogoutClick} />
                 <div className="container">
-                    <h1>Twitter</h1>
                     {content}
                 </div >
             </div>

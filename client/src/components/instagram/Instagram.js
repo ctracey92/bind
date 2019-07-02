@@ -121,7 +121,7 @@ class Instagram extends Component {
                                 <input class="file-path validate" type="text" placeholder="Upload one or more files" />
                             </div>
                         </div>
-                        <textarea id="textarea1" className="materialize-textarea" value={this.state.status} onChange={this.handleStatusChange} style={{ width: "600px" }}></textarea>
+                        <textarea id="textarea1" className="materialize-textarea" value={this.state.status} onChange={this.handleStatusChange} style={{ width: "600px" }} placeholder="Type your caption here"></textarea>
                         <br />
                         <span>
                             <button className=" btn-large" onClick={this.postToInstagram} style={{ backgroundColor: "#e4e4e4", color: "black" }}>

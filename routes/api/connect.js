@@ -2,8 +2,8 @@ const router = require('express').Router();
 const passport = require("passport");
 const cors = require("cors")
 const User = require("../../client/models/user")
-let TwitterClient = require('twitter');
-const twitterKeys = require("../../twitterKeys");
+
+
 
 router.options('*', cors())
 
