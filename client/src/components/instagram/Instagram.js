@@ -6,6 +6,8 @@ import Sidenav from "../layout/sidenav//Sidenav"
 import API from "../../utils/socialAuth"
 import axios from "axios";
 import Modal from "react-responsive-modal";
+import instagramAPI from "../../utils/instagram";
+import cheerio from "cheerio";
 
 class Instagram extends Component {
 
@@ -21,6 +23,7 @@ class Instagram extends Component {
         username: "",
         website: "",
         status: "",
+        hashtags: [],
     }
 
     onLogoutClick = e => {
@@ -39,6 +42,19 @@ class Instagram extends Component {
     handleStatusChange = e => {
         this.setState({ status: e.target.value })
     };
+
+    getHastags = () => {
+        instagramAPI.getHashtags()
+            .then(res => {
+                let results = [];
+                let $ = cheerio.load(res.data);
+                $(".tht li .tht-tag a").each(function() {
+                    // console.log($(this).text())
+                    results.push(($(this).text()))
+                })
+                this.setState({hashtags: results})
+            })
+    }
 
     authorize = () => {
         const id = this.props.auth.user.id
@@ -74,6 +90,7 @@ class Instagram extends Component {
 
     componentDidMount() {
         this.authorize()
+        this.getHastags()
         console.log(this.state.counts)
     }
 
@@ -91,7 +108,7 @@ class Instagram extends Component {
                 <div className="col s12 m6">
                     <div className="card">
                         <div className="card-image">
-                            <img className="circle" src={this.state.image} />
+                            <img className="circle" src={this.state.image} alt="profile-image"/>
                             <span className="card-title"><b>@{this.state.username}</b></span>
                             <button className="btn-floating halfway-fab waves-effect waves-light red" onClick={this.openModal}><i className="material-icons">add</i></button>
                         </div>
@@ -110,6 +127,12 @@ class Instagram extends Component {
                         <p>
                             Please click the button to check out some of our upcoming features!
                         </p>
+                        <b>Get in the conversation with these top hashtags:</b>
+                        <div style={{maxHeight: "400px", overflow: "auto"}}>
+                            {this.state.hashtags.map(item => (
+                                <li>{item}</li>
+                            ))}
+                        </div>
                     </div>
                 </div>
                 <Modal open={this.state.modalIsOpen} onClose={this.closeModal}>
@@ -137,14 +160,17 @@ class Instagram extends Component {
 
                 </Modal>
             </div>
-        ) : (<a href={url}><button>Authorize IG</button></a>);
+        ) : ( <div>
+             <h3>Instagram</h3>
+             <a href={url}><button>Authorize IG</button></a>
+        </div>
+        
+        );
         return (
             <div className="container valign-wrapper">
                 <Sidenav username={user.username} logout={this.onLogoutClick} />
-                <div className="container">
-                    <div className="row">
-                        <h1>Instagram</h1>
-                    </div>
+                <div className="" style={{paddingLeft: "100px"}}>
+                    <div className="row"></div>
                     <div className="row">
                         {content}
                     </div>

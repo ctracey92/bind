@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const cors = require("cors")
-
+const axios = require("axios");
 const TwitterClient = require('twitter');
+
 
 const TWITTER_CONSUMER_KEY = "DXA0gDYBG5mbFnRvFDN9GF0Xw";
 const TWITTER_CONSUMER_SECRET = "AQ03g7uYv2NUhCsqarwZ3atAbfkSIc0O0tcOELAhWIj7JzhMX3";
@@ -15,8 +16,8 @@ router.post("/post", (req, res) => {
     let status = req.body.status;
 
     let client = new TwitterClient({
-        consumer_key: twitterKeys.TWITTER_CONSUMER_KEY,
-        consumer_secret: twitterKeys.TWITTER_CONSUMER_SECRET,
+        consumer_key: TWITTER_CONSUMER_KEY,
+        consumer_secret: TWITTER_CONSUMER_SECRET,
         access_token_key: token,
         access_token_secret: tokenSecret,
     });
@@ -38,13 +39,13 @@ router.post("/favorites", (req, res) => {
     let tokenSecret = req.body.tokenSecret;
 
     let client = new TwitterClient({
-        consumer_key: twitterKeys.TWITTER_CONSUMER_KEY,
-        consumer_secret: twitterKeys.TWITTER_CONSUMER_SECRET,
+        consumer_key: TWITTER_CONSUMER_KEY,
+        consumer_secret: TWITTER_CONSUMER_SECRET,
         access_token_key: token,
         access_token_secret: tokenSecret,
     });
 
-    client.get("favorites/list", function (error, tweets, response) {
+    client.get("favorites/list",{count: 50}, function (error, tweets, response) {
         if (error) {
             console.log(error)
             return res.sendStatus(500)
@@ -53,9 +54,9 @@ router.post("/favorites", (req, res) => {
         res.send(tweets)  // The favorites.
         // console.log(response);  // Raw response object.
     });
-
-
 })
+
+
 
 router.post("/mentions", (req, res) => {
     let token = req.body.token;
@@ -78,6 +79,35 @@ router.post("/mentions", (req, res) => {
     });
 
 
+})
+
+router.post("/timeline", (req, res) => {
+    let token = req.body.token;
+    let tokenSecret = req.body.tokenSecret;
+
+    let client = new TwitterClient({
+        consumer_key: TWITTER_CONSUMER_KEY,
+        consumer_secret: TWITTER_CONSUMER_SECRET,
+        access_token_key: token,
+        access_token_secret: tokenSecret,
+    });
+
+    client.get("statuses/home_timeline", {count: 200}, function (error, tweets, response) {
+        if (error) {
+            console.log(error)
+            return res.sendStatus(500)
+        };
+        res.send(tweets)  // The favorites.
+        // console.log(response);  // Raw response object.
+    });
+
+
+})
+
+router.get("/scrape/", (req,res) => {   
+    axios.get("https://www.tweet247.net/united%20states").then(results => {       
+        res.send(results.data)
+    })
 })
 
 

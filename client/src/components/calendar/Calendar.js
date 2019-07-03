@@ -171,7 +171,7 @@ class Calendar extends Component {
 
                     </div>
                     <div className="col s8">
-                        <div className="container valign-wrapper">
+                        <div style={{paddingLeft: "100px", maxWidth: "950px"}}>
                             <FullCalendar
 
                                 dateClick={this.handleDateClick}

@@ -7,14 +7,17 @@ import API from "../../utils/socialAuth";
 import twitterAPI from "../../utils/twitter"
 import Notifications, { notify } from 'react-notify-toast'
 import Modal from "react-responsive-modal";
-import { throws } from "assert";
 import Favorites from "./favorites";
+import cheerio from "cheerio";
+
 
 class Twitter extends Component {
     state = {
         authorized: false,
         modalIsOpen: false,
         mentionsModal: false,
+        favoritesModal: false,
+        trendingModal: false,
         followerCount: "",
         following: "",
         image: "",
@@ -26,6 +29,9 @@ class Twitter extends Component {
         tweetLength: 140,
         tweetColor: "black",
         favorites: [],
+        mentions: [],
+        timeline: [],
+        trending: [],
     };
 
     openModal = () => {
@@ -36,12 +42,28 @@ class Twitter extends Component {
         this.setState({ modalIsOpen: false })
     };
 
+    openTrendingModal = () => {
+        this.getTrending()
+    };
+
+    closeTrendingModal = () => {
+        this.setState({ trendingModal: false })
+    };
+
     openMentionsModal = () => {
         this.getMentions()
     };
 
     closeMentionsModal = () => {
         this.setState({ mentionsModal: false })
+    };
+
+    openFavoritesModal = () => {
+        this.getFavorites()
+    };
+
+    closeFavoritesModal = () => {
+        this.setState({ favoritesModal: false })
     };
 
     onLogoutClick = e => {
@@ -70,11 +92,14 @@ class Twitter extends Component {
                         mentions: [],
                     })
                 }
+
+                this.getTimeline(data.token, data.tokenSecret)
             })
             .catch(err => console.log(err))
 
 
     };
+
 
     componentDidMount() {
         this.authorizeTwitter()
@@ -120,6 +145,7 @@ class Twitter extends Component {
                 this.setState({ favorites: res.data })
             })
             .catch(err => console.log(err));
+        this.setState({ favoritesModal: true })
     };
 
     getMentions = (e) => {
@@ -131,8 +157,29 @@ class Twitter extends Component {
                 this.setState({ mentions: res.data })
             })
             .catch(err => console.log(err));
-            this.setState({ mentionsModal: true })
+        this.setState({ mentionsModal: true })
     };
+
+    getTimeline = (token, tokenSecret) => {
+        twitterAPI.getTimeline(token, tokenSecret)
+            .then(res => {
+                console.log(res.data);
+                this.setState({ timeline: res.data })
+            })
+            .catch(err => console.log(err));
+    };
+
+    getTrending = () => {
+        twitterAPI.getTrending()
+            .then(res => {
+                let results = [];
+                let $ = cheerio.load(res.data);
+                $(".post-list .media-body .post-title").each(function () {
+                    results.push($(this).text())
+                })
+                this.setState({ trending: results, trendingModal: true })
+            })
+    }
 
     render() {
         const { user } = this.props.auth;
@@ -156,13 +203,20 @@ class Twitter extends Component {
                         letterSpacing: "1.5px",
                         marginTop: "1rem",
                     }}>Tweet Something</button>
-                    <button  onClick={this.openMentionsModal} className=" btn-large hoverable grey darken-2" style={{
+                    <button onClick={this.openMentionsModal} className=" btn-large hoverable grey darken-2" style={{
                         marginRight: "2.5px",
                         marginLeft: "2.5px",
                         borderRadius: "3px",
                         letterSpacing: "1.5px",
                         marginTop: "1rem",
                     }}>Get Mentions</button>
+                    <button onClick={this.openTrendingModal} className=" btn-large hoverable grey darken-2" style={{
+                        marginRight: "2.5px",
+                        marginLeft: "2.5px",
+                        borderRadius: "3px",
+                        letterSpacing: "1.5px",
+                        marginTop: "1rem",
+                    }}>What's Trending?</button>
                 </div>
                 <div className="row">
                     <Modal open={this.state.modalIsOpen} onClose={this.closeModal}>
@@ -197,10 +251,30 @@ class Twitter extends Component {
                             />
                         ))}
                     </Modal>
-                    <p>Authenticated {this.state.profileUsername}</p>
-                    <Notifications />
-                    <div className="favorites">
+                    <Modal open={this.state.trendingModal} onClose={this.closeTrendingModal} style={{maxHeight: "500px", overflow: "auto"}}>
+                        <h3>Currently Trending:</h3>
+                        {this.state.trending.map(item => (
+                            <li><b>{item}</b></li>
+                        ))}
+                    </Modal>
+                    <Modal open={this.state.favoritesModal} onClose={this.closeFavoritesModal}>
                         {this.state.favorites.map(item => (
+                            <Favorites
+                                key={item.id}
+                                id={item.id_str}
+                                retweets={item.retweet_count}
+                                text={item.text}
+                                favorites={item.favorite_count}
+                                user={item.user}
+                                replyTo={item.in_reply_to_screen_name}
+                                retweeted={item.retweeted}
+                            />
+                        ))}
+                    </Modal>
+                    <p> <b>{this.state.profileUsername}</b>'s timeline:</p>
+                    <Notifications />
+                    <div className="timeline" style={{ maxHeight: "600px", overflow: "auto" }}>
+                        {this.state.timeline.map(item => (
                             <Favorites
                                 key={item.id}
                                 id={item.id_str}
@@ -225,7 +299,7 @@ class Twitter extends Component {
         return (
             <div className="container valign-wrapper">
                 <Sidenav username={user.username} logout={this.onLogoutClick} />
-                <div className="container">
+                <div style={{paddingLeft: "100px"}}>
                     {content}
                 </div >
             </div>

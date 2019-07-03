@@ -19,5 +19,14 @@ export default {
              token: token,
              tokenSecret: tokenSecret,
          })
-     },
+    },
+    getTimeline: (token, tokenSecret) => {
+        return axios.post("/api/twitter/timeline", {
+            token: token,
+            tokenSecret: tokenSecret,
+        })
+    },
+    getTrending: () => {
+        return axios.get("/api/twitter/scrape/")
+    }
 }

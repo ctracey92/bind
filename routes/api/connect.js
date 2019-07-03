@@ -1,11 +1,13 @@
 const router = require('express').Router();
 const passport = require("passport");
-const cors = require("cors")
-const User = require("../../client/models/user")
+const cors = require("cors");
+const cheerio = require("cheerio");
+const User = require("../../client/models/user");
+const axios = require("axios");
 
 
 
-router.options('*', cors())
+router.options('*', cors());
 
 //Twitter Routes
 let states = {}
@@ -43,5 +45,12 @@ router.get('/auth/:id', (req, res) => {
         else { throw err }
     })
 });
+
+
+router.get("/scrape/instagram", (req,res) => {   
+    axios.get("https://top-hashtags.com/instagram/").then(results => {       
+        res.send(results.data)
+    })
+})
 
 module.exports = router;
