@@ -15,25 +15,25 @@ router.get('/twitter/:id', (req, res, next) => {
     const params = req.params.id
     var reqID = params
     req.session.state = reqID;
-    const authenticate = passport.authorize('twitter-authz', { failureRedirect: 'http://127.0.0.1:3000/dashboard' })
+    const authenticate = passport.authorize('twitter-authz', { failureRedirect: 'http://www.bind-it-app.com/dashboard' })
     authenticate(req, res, next)
 }
 );
 
-router.get('/twitter/callback', passport.authorize('twitter-authz', { failureRedirect: 'http://127.0.0.1:3000/dashboard' })
+router.get('/twitter/callback', passport.authorize('twitter-authz', { failureRedirect: 'http://www.bind-it-app.com/dashboard' })
 );
 
 //Instagram Routes
 router.get('/instagram/:id', (req, res) => {
     const params = req.params.id
-    const authenticate = passport.authorize('instagram-authz', { state: params, failureRedirect: 'http://127.0.0.1:3000/dashboard' })
+    const authenticate = passport.authorize('instagram-authz', { state: params, failureRedirect: 'http://www.bind-it-app.com/dashboard' })
     authenticate(req, res)
 }
 );
 
 router.get('/instagram/callback', (req, res) => {
     console.log(req, "REQUEST")
-    const authenticate = passport.authorize('instagram-authz', { state: params, failureRedirect: "http://127.0.0.1:3000/dashboard" })
+    const authenticate = passport.authorize('instagram-authz', { state: params, failureRedirect: "http://www.bind-it-app.com/dashboard" })
     authenticate(req, res)
 }
 );

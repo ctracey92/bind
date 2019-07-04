@@ -38,7 +38,7 @@ module.exports = passport => {
     passport.use('twitter-authz', new TwitterStrategy({
         consumerKey: TWITTER_CONSUMER_KEY,
         consumerSecret: TWITTER_CONSUMER_SECRET,
-        callbackURL: "http://127.0.0.1:3001/api/connect/twitter/callback",
+        callbackURL: "http://www.bind-it-app.com/api/connect/twitter/callback",
         passReqToCallback: true,
     },
         (req, token, tokenSecret, profile, done) => {
@@ -71,7 +71,7 @@ module.exports = passport => {
     passport.use("instagram-authz", new InstagramStrategy({
         clientID: INSTAGRAM_CLIENT_ID,
         clientSecret: INSTAGRAM_CLIENT_SECRET,
-        callbackURL: "http://127.0.0.1:3001/api/connect/instagram/callback",
+        callbackURL: "http://www.bind-it-app.com/api/connect/instagram/callback",
         passReqToCallback: true,
 
     },
