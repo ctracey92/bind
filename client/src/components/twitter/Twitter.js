@@ -115,10 +115,9 @@ class Twitter extends Component {
         twitterAPI.postToTwitter(token, tokenSecret, status)
             .then(
                 console.log("Success"),
-                notify.show("Tweet Successful", "success", 10000)
+                notify.show("Tweet Successful", "success", 5000)
             )
             .catch(err => {
-                notify.show("Tweet Unsuccessful", "error")
                 console.log(err)
             })
         this.setState({ tweetColor: "black", tweetLength: 140, status: "" })
@@ -292,7 +291,13 @@ class Twitter extends Component {
         ) : (
                 <div>
                     <h1>Twitter</h1>
-                    <a href={url}><button>Authorize Twitter</button></a>
+                    <a href={url}><button className=" btn-large hoverable grey darken-2" style={{
+                        marginRight: "2.5px",
+                        marginLeft: "2.5px",
+                        borderRadius: "3px",
+                        letterSpacing: "1.5px",
+                        marginTop: "1rem",
+                    }}>Authorize Twitter</button></a>
                 </div>
             )
 

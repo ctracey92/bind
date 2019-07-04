@@ -20,8 +20,9 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Calendar from "./components/calendar/Calendar";
 import Privacy from "./components/privacy/Privacy";
 import Terms from "./components/terms/Terms";
-import Twitter from "./components/twitter/Twitter"
-import Instagram from "./components/instagram/Instagram"
+import Twitter from "./components/twitter/Twitter";
+import Instagram from "./components/instagram/Instagram";
+import Brand from "./components/brand/Brand";
 
 //Check for token to keep user logged in...
 if(localStorage.jwToken){
@@ -62,6 +63,7 @@ class App extends Component {
                         <PrivateRoute exact path="/calendar" component={Calendar} />
                         <PrivateRoute exact path="/twitter" component={Twitter} />
                         <PrivateRoute exact path="/instagram" component={Instagram} />
+                        <PrivateRoute exact path="/brand" component={Brand}/>
                     </Switch>
                     {/* <Footer />  Needs some work before implementation*/}
                 </div>                

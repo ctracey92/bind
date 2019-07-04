@@ -8,6 +8,7 @@ import axios from "axios";
 import Modal from "react-responsive-modal";
 import instagramAPI from "../../utils/instagram";
 import cheerio from "cheerio";
+import Notifications, { notify } from 'react-notify-toast'
 
 class Instagram extends Component {
 
@@ -98,6 +99,7 @@ class Instagram extends Component {
         e.preventDefault();
         this.setState({ status: "" })
         this.closeModal();
+        notify.show("Post Successful", "success", 5000);
     };
 
     render() {
@@ -159,10 +161,17 @@ class Instagram extends Component {
                     </form>
 
                 </Modal>
+                <Notifications />
             </div>
         ) : ( <div>
              <h3>Instagram</h3>
-             <a href={url}><button>Authorize IG</button></a>
+             <a href={url}><button className=" btn-large hoverable grey darken-2" style={{
+                        marginRight: "2.5px",
+                        marginLeft: "2.5px",
+                        borderRadius: "3px",
+                        letterSpacing: "1.5px",
+                        marginTop: "1rem",
+                    }}>Authorize IG</button></a>
         </div>
         
         );

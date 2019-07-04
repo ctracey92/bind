@@ -21,6 +21,8 @@ function Sidenav(props) {
                 <li className=".sidenav-close"><Link to="/twitter"><i className="fab fa-twitter-square icon fa-3x"></i>Twitter</Link></li>
                 <li><Link to="/instagram"><i className="fab fa-instagram icon fa-3x"></i>Instagram</Link></li>
                 <li><Link to="/calendar"><i className="far fa-calendar-alt icon fa-3x"></i>Calendar</Link></li>
+                <li><Link to="/brand"><i className="far fa-address-card fa-3x"></i>Brand</Link></li>
+                
                 <li><div className="divider"></div></li>
                 <li>
                     <button
@@ -36,6 +38,13 @@ function Sidenav(props) {
                     >
                         Logout
                 </button>
+                </li>
+                <li>
+                    <u><Link to="/privacy" style={{ color: "black",marginLeft: "28px" }}>Privacy Policy</Link></u> 
+                </li>
+                <li>
+                    <u><Link to="/terms" style={{ color: "black",marginLeft: "28px"  }}>Terms of Service</Link></u>
+
                 </li>
             </ul>
             <Link to="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></Link>

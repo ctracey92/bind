@@ -18,56 +18,62 @@ class Dashboard extends Component {
         return (
             <div>
                 <Sidenav username={user.username} logout={this.onLogoutClick} />
-                <div style={{ height: "75vh" }} className="container valign-wrapper">
+                <div className="container" style={{ paddingLeft: "100px" }}>
                     <div className="row">
 
-                        <div className="col s12 m6">
+                        <div className="col" style={{ width: "475px" }}>
                             <div className="card grey darken-3">
                                 <div className="card-content white-text">
-                                    <span className="card-title">Calendar</span>
-                                    <p>Manage your Calendar here!</p>
-                                </div>
-                                <div className="card-action">
-                                    <Link to="/calendar">Calendar</Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col s12 m6">
-                            <div className="card grey darken-3">
-                                <div className="card-content white-text">
-                                    <span className="card-title">Twitter</span>
-                                    <p>Manage your IG here!</p>
-                                </div>
-                                <div className="card-action">
-                                    <Link to="/twitter">Twitter</Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col s12 m6">
-                            <div className="card grey darken-3">
-                                <div className="card-content white-text">
-                                    <span className="card-title">Instagram </span>
-                                    <p>Manage your IG here!</p>
-                                </div>
-                                <div className="card-action">
-                                    <Link to="/instagram">Instagram</Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col s12 m6">
-                            <div className="card grey darken-3">
-                                <div className="card-content white-text">
-                                    <span className="card-title">Action 4</span>
-                                    <p>I do something</p>
-                                </div>
-                                <div className="card-action">
-                                    {/* <a href="#">This is a link</a>
-                                    <a href="#">This is a link</a> */}
-                                </div>
-                            </div>
-                        </div>
 
+                                    <div class="card-image">
+                                        <Link to ="calendar"><img src="https://pbs.twimg.com/media/D-pa4QCWsAEBK17.jpg" style={{height: "225px", width: "400px"}} /></Link>
+                                    </div>
+                                </div>
+                                <div className="card-action">
+                               <u> <Link to="/calendar" style={{color: "white"}}>Calendar</Link> </u>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col" style={{ width: "475px" }}>
+                            <div className="card grey darken-3">
+                                <div className="card-content white-text">
 
+                                    <div class="card-image">
+                                        <Link to="/instagram"><img src="https://pbs.twimg.com/media/D-peu3WXsAEssP9.jpg" style={{height: "225px", width: "400px"}} /></Link>
+                                    </div>
+                                </div>
+                                <div className="card-action">
+                                <u><Link to="/instagram" style={{color: "white"}}>Instagram</Link></u>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col" style={{ width: "475px" }}>
+                            <div className="card grey darken-3">
+                                <div className="card-content white-text">
+
+                                    <div class="card-image">
+                                        <Link to="/twitter"><img src="https://pbs.twimg.com/media/D-peu3WXsAEssP9.jpg" style={{height: "225px", width: "400px"}} /></Link>
+                                    </div>
+                                </div>
+                                <div className="card-action">
+                                    <u><Link to="/twitter" style={{color: "white"}}>Twitter</Link></u>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col" style={{ width: "475px" }}>
+                            <div className="card grey darken-3">
+                                <div className="card-content white-text">
+
+                                    <div class="card-image">
+                                        <Link to="calendar"><img src="https://pbs.twimg.com/media/D-pewfvWkAEFilt.jpg" style={{height: "225px", width: "400px"}} /></Link>
+                                    </div>
+                                </div>
+                                <div className="card-action">
+                                <u><Link to="/brand" style={{color: "white"}}>Brand Yourself</Link></u>
+                                </div>
+                            </div>
+                        </div>
+                       
                     </div>
                 </div>
             </div>
