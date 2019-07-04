@@ -183,7 +183,7 @@ class Twitter extends Component {
 
     render() {
         const { user } = this.props.auth;
-        let url = "http://127.0.0.1:3001/api/connect/twitter/" + user.id;
+        let url = "http://www.bind-it-app.com/api/connect/twitter/" + user.id;
 
         let content = this.state.authorized ? (
             <div>
