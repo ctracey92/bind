@@ -63,20 +63,23 @@ class Instagram extends Component {
         API.authorized(id)
             .then(res => {
                 const data = res.data.instagram
-                this.setState({
-                    authorized: true,
-                    accessToken: data.accessToken,
-                    bio: data.bio,
-                    counts: data.counts,
-                    displayName: data.displayName,
-                    image: data.image,
-                    is_business: data.is_business,
-                    profileID: data.profileID,
-                    username: data.username,
-                    website: data.website,
-                    display: "hidden",
-                    status: "",
-                })
+                if(data.profileID){
+                    this.setState({
+                        authorized: true,
+                        accessToken: data.accessToken,
+                        bio: data.bio,
+                        counts: data.counts,
+                        displayName: data.displayName,
+                        image: data.image,
+                        is_business: data.is_business,
+                        profileID: data.profileID,
+                        username: data.username,
+                        website: data.website,
+                        display: "hidden",
+                        status: "",
+                    })
+                }
+               
             })
             .catch(err => console.log(err));
     }
@@ -163,7 +166,7 @@ class Instagram extends Component {
                 <Notifications />
             </div>
         ) : (<div>
-            <h>Instagram</h>
+            <h1>Instagram</h1>
             <a href={url}><button className=" btn-large hoverable grey darken-2" style={{
                 marginRight: "2.5px",
                 marginLeft: "2.5px",
