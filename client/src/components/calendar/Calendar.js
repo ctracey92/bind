@@ -44,7 +44,6 @@ class Calendar extends Component {
     getEvents = () => {
         API.getEvents(this.props.auth.user.id)
             .then(res => {
-                console.log(res)
                 this.setState({ events: res.data })
             })
             .catch(err => console.log(err));
@@ -77,11 +76,9 @@ class Calendar extends Component {
 
     handleChange = color => {
         this.setState({ color });
-        console.log(`Option selected:`, color);
     };
 
     add = e => {
-        console.log(this.props.auth.user.id,"HERE")
         let end = this.state.end ? this.state.end : this.state.start;
         if (end < this.state.start) {
             end = this.state.start

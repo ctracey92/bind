@@ -25,8 +25,8 @@ class Dashboard extends Component {
                             <div className="card grey darken-3">
                                 <div className="card-content white-text">
 
-                                    <div class="card-image">
-                                        <Link to ="calendar"><img src="https://pbs.twimg.com/media/D-pa4QCWsAEBK17.jpg" style={{height: "225px", width: "400px"}} /></Link>
+                                    <div className="card-image">
+                                        <Link to ="calendar"><img src="https://pbs.twimg.com/media/D-pa4QCWsAEBK17.jpg" alt="calendar" style={{height: "225px", width: "400px"}} /></Link>
                                     </div>
                                 </div>
                                 <div className="card-action">
@@ -38,8 +38,8 @@ class Dashboard extends Component {
                             <div className="card grey darken-3">
                                 <div className="card-content white-text">
 
-                                    <div class="card-image">
-                                        <Link to="/instagram"><img src="https://pbs.twimg.com/media/D-peu3WXsAEssP9.jpg" style={{height: "225px", width: "400px"}} /></Link>
+                                    <div className="card-image">
+                                        <Link to="/instagram"><img src="https://pbs.twimg.com/media/D-peu3WXsAEssP9.jpg" alt="instagram" style={{height: "225px", width: "400px"}} /></Link>
                                     </div>
                                 </div>
                                 <div className="card-action">
@@ -51,8 +51,8 @@ class Dashboard extends Component {
                             <div className="card grey darken-3">
                                 <div className="card-content white-text">
 
-                                    <div class="card-image">
-                                        <Link to="/twitter"><img src="https://pbs.twimg.com/media/D-peu3WXsAEssP9.jpg" style={{height: "225px", width: "400px"}} /></Link>
+                                    <div className="card-image">
+                                        <Link to="/twitter"><img src="https://pbs.twimg.com/media/D-pex3HXYAAlx-q.jpg" style={{height: "225px", width: "400px"}} alt="twitter" /></Link>
                                     </div>
                                 </div>
                                 <div className="card-action">
@@ -64,12 +64,12 @@ class Dashboard extends Component {
                             <div className="card grey darken-3">
                                 <div className="card-content white-text">
 
-                                    <div class="card-image">
-                                        <Link to="calendar"><img src="https://pbs.twimg.com/media/D-pewfvWkAEFilt.jpg" style={{height: "225px", width: "400px"}} /></Link>
+                                    <div className="card-image">
+                                        <Link to="calendar"><img src="https://pbs.twimg.com/media/D-pewfvWkAEFilt.jpg" style={{height: "225px", width: "400px"}} alt="brand"/></Link>
                                     </div>
                                 </div>
                                 <div className="card-action">
-                                <u><Link to="/brand" style={{color: "white"}}>Brand Yourself</Link></u>
+                                <u><Link to="/brand" style={{color: "white"}}>Brand Yourself (steps for getting started)</Link></u>
                                 </div>
                             </div>
                         </div>

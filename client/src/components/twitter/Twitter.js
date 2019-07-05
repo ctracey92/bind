@@ -107,14 +107,12 @@ class Twitter extends Component {
 
     postToTwitter = (e) => {
         e.preventDefault();
-        console.log(this.state.status.length, "LENGTH OF TWEET?")
         let token = this.state.token;
         let tokenSecret = this.state.tokenSecret;
         let status = this.state.status
 
         twitterAPI.postToTwitter(token, tokenSecret, status)
             .then(
-                console.log("Success"),
                 notify.show("Tweet Successful", "success", 5000)
             )
             .catch(err => {
@@ -140,7 +138,6 @@ class Twitter extends Component {
         let tokenSecret = this.state.tokenSecret;
         twitterAPI.getFavorites(token, tokenSecret)
             .then(res => {
-                console.log(res.data);
                 this.setState({ favorites: res.data })
             })
             .catch(err => console.log(err));
@@ -152,7 +149,6 @@ class Twitter extends Component {
         let tokenSecret = this.state.tokenSecret;
         twitterAPI.getMentions(token, tokenSecret)
             .then(res => {
-                console.log(res.data);
                 this.setState({ mentions: res.data })
             })
             .catch(err => console.log(err));
@@ -162,7 +158,6 @@ class Twitter extends Component {
     getTimeline = (token, tokenSecret) => {
         twitterAPI.getTimeline(token, tokenSecret)
             .then(res => {
-                console.log(res.data);
                 this.setState({ timeline: res.data })
             })
             .catch(err => console.log(err));
@@ -253,7 +248,7 @@ class Twitter extends Component {
                     <Modal open={this.state.trendingModal} onClose={this.closeTrendingModal} style={{maxHeight: "500px", overflow: "auto"}}>
                         <h3>Currently Trending:</h3>
                         {this.state.trending.map(item => (
-                            <li><b>{item}</b></li>
+                            <li key = { item }><b>{item}</b></li>
                         ))}
                     </Modal>
                     <Modal open={this.state.favoritesModal} onClose={this.closeFavoritesModal}>

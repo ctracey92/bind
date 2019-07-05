@@ -41,7 +41,7 @@ componentWillReceiveProps(nextProps) {
                     borderRadius: "3px",
                     letterSpacing: "1.5px"
                   }}
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  className="btn-large hoverable grey darken-2"
                 >
                   Register
                 </Link>
@@ -54,7 +54,7 @@ componentWillReceiveProps(nextProps) {
                     borderRadius: "3px",
                     letterSpacing: "1.5px"
                   }}
-                  className="btn btn-large btn-flat waves-effect white black-text"
+                  className="btn-large hoverable grey darken-2"
                 >
                   Log In
                 </Link>
