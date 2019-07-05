@@ -102,7 +102,7 @@ class Instagram extends Component {
 
     render() {
         const { user } = this.props.auth;
-        let url = "http://127.0.0.1:3001/api/connect/instagram/" + user.id;
+        let url = "http://www.bind-it-app.com/api/connect/instagram/" + user.id;
         let content = this.state.authorized ? (
             <div>
                 <div className="col s12 m6">
@@ -163,7 +163,7 @@ class Instagram extends Component {
                 <Notifications />
             </div>
         ) : (<div>
-            <h1>Instagram</h1>
+            <h>Instagram</h>
             <a href={url}><button className=" btn-large hoverable grey darken-2" style={{
                 marginRight: "2.5px",
                 marginLeft: "2.5px",
