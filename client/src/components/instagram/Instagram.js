@@ -163,7 +163,7 @@ class Instagram extends Component {
                 <Notifications />
             </div>
         ) : (<div>
-            <h3>Instagram</h3>
+            <h1>Instagram</h1>
             <a href={url}><button className=" btn-large hoverable grey darken-2" style={{
                 marginRight: "2.5px",
                 marginLeft: "2.5px",
