@@ -16,6 +16,7 @@ Users are able to:
 - MongoDB (Database)
 - Mongoose (ORM)
 - React 
+- Redux
 - MaterializeCSS (CSS Style Library)
 - Passport (User Validation & API Authorization)
 - Cheerio (Scraping)
