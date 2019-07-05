@@ -30,7 +30,7 @@ componentWillReceiveProps(nextProps) {
                 <b>B.I.N.D.</b> | A social media managing app
               </h4>
               <p className="flow-text grey-text text-darken-1">
-                Create an account <b>Brand</b>, <b>Influence</b>, <b>Network</b>, and <b>Dominate</b>.
+                Create an account to <b>Brand</b>, <b>Influence</b>, <b>Network</b>, and <b>Dominate</b>.
               </p>
               <br />
               <div className="col s6">
