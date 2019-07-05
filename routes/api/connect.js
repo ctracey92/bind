@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const passport = require("passport");
 const cors = require("cors");
-const cheerio = require("cheerio");
 const User = require("../../client/models/user");
 const axios = require("axios");
 

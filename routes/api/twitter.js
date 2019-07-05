@@ -4,8 +4,9 @@ const axios = require("axios");
 const TwitterClient = require('twitter');
 
 
-const TWITTER_CONSUMER_KEY = "DXA0gDYBG5mbFnRvFDN9GF0Xw";
-const TWITTER_CONSUMER_SECRET = "AQ03g7uYv2NUhCsqarwZ3atAbfkSIc0O0tcOELAhWIj7JzhMX3";
+const TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY;
+const TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET;
+
  
 
 router.options('*', cors())

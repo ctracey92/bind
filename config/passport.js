@@ -7,11 +7,13 @@ const User = mongoose.model("users");
 const keys = require("./keys");
 
 
-const TWITTER_CONSUMER_KEY = "DXA0gDYBG5mbFnRvFDN9GF0Xw";
-const TWITTER_CONSUMER_SECRET = "AQ03g7uYv2NUhCsqarwZ3atAbfkSIc0O0tcOELAhWIj7JzhMX3";
+const TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY;
+const TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET;
 
-const INSTAGRAM_CLIENT_ID = "7f4a13e28eef4e4daad6d4a86a4df77b";
-const INSTAGRAM_CLIENT_SECRET = "bf9e31c8d885454898f334ed7e439ae8";
+const INSTAGRAM_CLIENT_ID = process.env.INSTAGRAM_CLIENT_ID;
+const INSTAGRAM_CLIENT_SECRET = process.env.INSTAGRAM_CLIENT_SECRET;
+
+
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
