@@ -14,7 +14,7 @@ function Favorites(props) {
                     <b>{reply} </b>
                 </div>
                 <a href={`https://twitter.com/${props.user.screen_name}/status/${props.id}`} target="_blank" rel="noopener noreferrer" style={{float: "right", marginRight: "5px"}}>            <i className="fab fa-twitter fa-2x"></i> See full tweet</a>
-                <p>{props.text} | Retweets: <b>{props.retweets}</b> Favorites: <b>{props.favorites} </b>
+                <p>{props.text} <br /> Retweets: <b>{props.retweets}</b> Favorites: <b>{props.favorites} </b>
                 <i className="fas fa-retweet fa-lg" style={{color: retweeted}}></i>
                 </p>
             </span>
