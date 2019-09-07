@@ -59,7 +59,9 @@ class Instagram extends Component {
     }
 
     authorize = () => {
-        const id = this.props.auth.user.id
+        // const id = this.props.auth.user.id
+        // Using a hard coded ID for the moment to showcase certain features, once IG/FB is reworked in V1.2 it will be reverted to a variable.
+        const id = "5d0bd7e5eafef8002a51cf73"
         API.authorized(id)
             .then(res => {
                 const data = res.data.instagram
